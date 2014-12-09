@@ -29,6 +29,12 @@ namespace MyProject.Specs.Models.Product
             db = _db;
         }
 
+        /// <summary>
+        /// Return all the non-deleted bouquets for a particular office.
+        /// </summary>
+        /// <param name="officeCode">The office code to retrieve the Bouquets for.</param>
+        /// <param name="errorMessage">A string that contains any errors that may have occurred.</param>
+        /// <returns>A IList of Bouquet Offices that match the officeCode inputed.</returns>
         public IList<BouquetOffice> ReturnBouquetsForOfficeCode(string officeCode, ref string errorMessage)
         {
             var result = db.ReturnBouquetsForOfficeCode(officeCode, ref errorMessage);

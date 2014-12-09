@@ -5,7 +5,7 @@ using MyProjects.Specs.UnitTests.Models.GlobalEntity.Mock;
 using MyProjects.Specs.UnitTests.Models.Product.Mock;
 using TechTalk.SpecFlow;
 
-namespace MyProjects.Specs.UnitTests.Features
+namespace MyProjects.Specs.UnitTests
 {
     /// <summary>
     /// This Dto is used to store the test results
@@ -34,12 +34,20 @@ namespace MyProjects.Specs.UnitTests.Features
         /// </summary>
         private MerchandiserInfoDto _testResult = new MerchandiserInfoDto();
 
+        /// <summary>
+        /// This method is left as a Stub for later implementation.
+        /// </summary>
         [Given(@"that the user is logged in")]
         public void GivenThatTheUserIsLoggedIn()
         {
             Assert.IsTrue(true);
         }
 
+        /// <summary>
+        /// This is where the data that is to be tested is "entered" in the system.
+        /// </summary>
+        /// <param name="officeCode">A string containing the office code to test.</param>
+        /// <param name="merchCode">A string containing the merch code to test.</param>
         [When(@"user enters the '(.*)' '(.*)'")]
         public void WhenUserEntersThe(string officeCode, string merchCode)
         {
@@ -78,14 +86,14 @@ namespace MyProjects.Specs.UnitTests.Features
         /// </summary>
         /// <param name="Response">The expected response based on the data entered.</param>
         /// <param name="BouquetCount">The number of bouquets that is expected to be returned.</param>
-        /// <param name="OfficeCodeIsValid">Boolean value indicating whether the </param>
-        /// <param name="MerchCodeIsValid"></param>
-        /// <param name="OfficeCodeExists"></param>
-        /// <param name="MerchCodeExists"></param>
-        /// <param name="OfficeCodeIsActive"></param>
-        /// <param name="MerchCodeIsActive"></param>
+        /// <param name="OfficeCodeIsValid">Boolean value indicating whether the Office Code is valid.</param>
+        /// <param name="MerchCodeIsValid">Boolean value indicating whether the Merch Code is valid.</param>
+        /// <param name="OfficeCodeExists">Boolean value indicating whether the Office Code is exists.</param>
+        /// <param name="MerchCodeExists">Boolean value indicating whether the Merch Code exists.</param>
+        /// <param name="OfficeCodeIsActive">Boolean value indicating whether the Office Code is active.</param>
+        /// <param name="MerchCodeIsActive">Boolean value indicating whether the Merch Code is active.</param>
         [Then(@"the result should match '(.*)' (.*) (.*) (.*) (.*) (.*) (.*) (.*)")]
-        public void ThenTheResultShouldMatchFalseFalseFalseFalseFalseFalse(string Response, int BouquetCount, bool OfficeCodeIsValid, bool MerchCodeIsValid, bool OfficeCodeExists, bool MerchCodeExists, bool OfficeCodeIsActive, bool MerchCodeIsActive)
+        public void ThenTheResultShouldMatch(string Response, int BouquetCount, bool OfficeCodeIsValid, bool MerchCodeIsValid, bool OfficeCodeExists, bool MerchCodeExists, bool OfficeCodeIsActive, bool MerchCodeIsActive)
         {
             Assert.AreEqual(_testResult.BouquetCount, BouquetCount);
             Assert.AreEqual(_testResult.OfficeCodeIsValid, OfficeCodeIsValid);

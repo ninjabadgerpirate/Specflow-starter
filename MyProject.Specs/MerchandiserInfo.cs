@@ -15,7 +15,6 @@ namespace MyProject.Specs
             bouquetOfficeModel = new BouquetOfficeModel();
             merchModel = new MerchModel();
         }
-
     }
 
     public interface IMerchandiserInfo

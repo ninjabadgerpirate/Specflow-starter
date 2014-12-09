@@ -37,13 +37,16 @@ namespace MyProject.Specs.Models.GlobalEntity
         /// <returns>A boolean value indicating whether the office code is valid.</returns>
         public bool OfficeCodeIsValid(string officeCode, ref string errorMessage)
         {
-            bool result = officeCode.Length == 6;
-            int n;
-            if (!int.TryParse(officeCode, out n))
+            bool result = false;
+            if (!string.IsNullOrEmpty(officeCode))
             {
-                result = false;
+                result = officeCode.Length == 6;
+                int n;
+                if (!int.TryParse(officeCode, out n))
+                {
+                    result = false;
+                }
             }
-
             return result;
         }
 
@@ -56,8 +59,12 @@ namespace MyProject.Specs.Models.GlobalEntity
         public bool OfficeCodeExists(string officeCode, ref string errorMessage)
         {
             var result = false;
-            IList<Office> data = db.FindMatchingOffices(officeCode, ref errorMessage);
-            result = data.Any(x => x.OfficeCode == officeCode);
+            if (!string.IsNullOrEmpty(officeCode))
+            {
+                IList<Office> data = db.FindMatchingOffices(officeCode, ref errorMessage);
+                result = data.Any(x => x.OfficeCode == officeCode);
+            }
+            
             return result;
         }
 
@@ -70,8 +77,12 @@ namespace MyProject.Specs.Models.GlobalEntity
         public bool OfficeCodeIsActive(string officeCode, ref string errorMessage)
         {
             bool result = false;
-            IList<Office> data = db.FindMatchingOffices(officeCode, ref errorMessage);
-            result = data.Any(x => x.OfficeCode == officeCode && x.LUCOfficeStatus == "Active");
+
+            if (!string.IsNullOrEmpty(officeCode))
+            {
+                IList<Office> data = db.FindMatchingOffices(officeCode, ref errorMessage);
+                result = data.Any(x => x.OfficeCode == officeCode && x.LUCOfficeStatus == "Active");
+            }
             return result;
         }
     }
