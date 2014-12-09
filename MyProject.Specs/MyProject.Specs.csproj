@@ -75,7 +75,8 @@
     <Compile Include="Entity\Office.cs">
       <DependentUpon>GenisysEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Enums\MerchandiserInfoEnum.cs" />
+    <Compile Include="Enums\MerchCodeResponseEnum.cs" />
+    <Compile Include="Enums\OfficeResponseEnum.cs" />
     <Compile Include="MerchandiserInfo.cs" />
     <Compile Include="Models\GlobalEntity\MerchModel.cs" />
     <Compile Include="Models\GlobalEntity\OfficeModel.cs" />
