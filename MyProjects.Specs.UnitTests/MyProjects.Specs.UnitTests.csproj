@@ -62,7 +62,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MerchandiserInfo.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\MerchandiserInfoSteps.cs" />
+    <Compile Include="MerchandiserInfoSteps.cs" />
     <Compile Include="Models\GlobalEntity\Mock\MerchDataMock.cs" />
     <Compile Include="Models\GlobalEntity\Mock\OfficeDataMock.cs" />
     <Compile Include="Models\Product\Mock\BouquetOfficeDataMock.cs" />
