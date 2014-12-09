@@ -1,0 +1,337 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="GeniSysModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="MerchCode">
+          <Key>
+            <PropertyRef Name="OfficeCode" />
+            <PropertyRef Name="MerchCode" />
+            <PropertyRef Name="EffectiveDate" />
+          </Key>
+          <Property Name="OfficeCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="MerchCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="EffectiveDate" Type="datetime" Nullable="false" />
+          <Property Name="GlobalEntityID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="MerchLevelID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LUCMerchStatus" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CurrentRate" Type="numeric" Precision="9" Scale="2" />
+          <Property Name="SavingsBalance" Type="money" />
+          <Property Name="LegacyMerchLevelID" Type="int" />
+          <Property Name="LegacyMerchandiserCodeID" Type="int" />
+          <Property Name="LegacyMerchID" Type="int" />
+          <Property Name="Latest" Type="bit" />
+          <Property Name="GenisysID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AwaitingSponsorCode" Type="varchar" MaxLength="6" />
+          <Property Name="InsertedBy" Type="uniqueidentifier" />
+          <Property Name="InsertedByName" Type="nvarchar" MaxLength="50" />
+          <Property Name="InsertedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="uniqueidentifier" />
+          <Property Name="UpdatedByName" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="InvestmentSlushFund" Type="money" />
+          <Property Name="OwnerSlushFund" Type="money" />
+          <Property Name="isPIP" Type="bit" />
+          <Property Name="CODLevel" Type="tinyint" Nullable="false" />
+          <Property Name="InvestmentFund" Type="money" />
+          <Property Name="OwnerFund" Type="money" />
+          <Property Name="LUCHighestQualification" Type="varchar" MaxLength="50" />
+          <Property Name="EventFundBalance" Type="money" />
+          <Property Name="RallyFundBalance" Type="money" />
+        </EntityType>
+        <EntityType Name="Office">
+          <Key>
+            <PropertyRef Name="OfficeCode" />
+          </Key>
+          <Property Name="OfficeCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="GlobalEntityID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LocationID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OwnerEntityID" Type="uniqueidentifier" />
+          <Property Name="OfficeName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PaysOverheads" Type="bit" Nullable="false" />
+          <Property Name="CurrentSuccessRate" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="InsertedOn" Type="datetime" />
+          <Property Name="InsertedBy" Type="uniqueidentifier" />
+          <Property Name="InsertedByName" Type="varchar" MaxLength="100" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="uniqueidentifier" />
+          <Property Name="UpdatedByName" Type="varchar" MaxLength="100" />
+          <Property Name="LUCOfficeStatus" Type="nchar" MaxLength="10" />
+          <Property Name="GenisysID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="isNewOffice" Type="bit" Nullable="false" />
+          <Property Name="OfficeWeighting" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ParentSalesChannelID" Type="varchar" MaxLength="5" />
+          <Property Name="SalesChannelID" Type="varchar" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="BouquetOffice">
+          <Key>
+            <PropertyRef Name="OfficeCode" />
+            <PropertyRef Name="SalesChannelID" />
+            <PropertyRef Name="ParentSalesChannelID" />
+            <PropertyRef Name="BouquetPrefix" />
+          </Key>
+          <Property Name="OfficeCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="SalesChannelID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ParentSalesChannelID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="BouquetPrefix" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="CountryID" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="InsertedOn" Type="datetime" />
+          <Property Name="InsertedBy" Type="uniqueidentifier" />
+          <Property Name="InsertedByName" Type="varchar" MaxLength="100" />
+          <Property Name="StrokeStructure" Type="int" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="DeletedBy" Type="uniqueidentifier" />
+          <Property Name="DeletedByName" Type="varchar" MaxLength="100" />
+          <Property Name="GenisysID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LUCPayoutStructure" Type="varchar" MaxLength="50" />
+          <Property Name="IsCashEnabled" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_BouquetOffice_Office">
+          <End Role="Office" Type="Self.Office" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BouquetOffice" Type="Self.BouquetOffice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Office">
+              <PropertyRef Name="OfficeCode" />
+            </Principal>
+            <Dependent Role="BouquetOffice">
+              <PropertyRef Name="OfficeCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GeniSysModelStoreContainer">
+          <EntitySet Name="MerchCode" EntityType="Self.MerchCode" Schema="GlobalEntity" store:Type="Tables" />
+          <EntitySet Name="Office" EntityType="Self.Office" Schema="GlobalEntity" store:Type="Tables" />
+          <EntitySet Name="BouquetOffice" EntityType="Self.BouquetOffice" Schema="Product" store:Type="Tables" />
+          <AssociationSet Name="FK_BouquetOffice_Office" Association="Self.FK_BouquetOffice_Office">
+            <End Role="Office" EntitySet="Office" />
+            <End Role="BouquetOffice" EntitySet="BouquetOffice" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GeniSysModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="MerchCode">
+          <Key>
+            <PropertyRef Name="OfficeCode" />
+            <PropertyRef Name="MerchCode1" />
+            <PropertyRef Name="EffectiveDate" />
+          </Key>
+          <Property Name="OfficeCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MerchCode1" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EffectiveDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="GlobalEntityID" Type="Guid" Nullable="false" />
+          <Property Name="MerchLevelID" Type="Guid" Nullable="false" />
+          <Property Name="LUCMerchStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CurrentRate" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="SavingsBalance" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="LegacyMerchLevelID" Type="Int32" />
+          <Property Name="LegacyMerchandiserCodeID" Type="Int32" />
+          <Property Name="LegacyMerchID" Type="Int32" />
+          <Property Name="Latest" Type="Boolean" />
+          <Property Name="GenisysID" Type="Guid" Nullable="false" />
+          <Property Name="AwaitingSponsorCode" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="InsertedBy" Type="Guid" />
+          <Property Name="InsertedByName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="InsertedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Guid" />
+          <Property Name="UpdatedByName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="InvestmentSlushFund" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="OwnerSlushFund" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="isPIP" Type="Boolean" />
+          <Property Name="CODLevel" Type="Byte" Nullable="false" />
+          <Property Name="InvestmentFund" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="OwnerFund" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="LUCHighestQualification" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EventFundBalance" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="RallyFundBalance" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="Office">
+          <Key>
+            <PropertyRef Name="OfficeCode" />
+          </Key>
+          <Property Name="OfficeCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="GlobalEntityID" Type="Guid" Nullable="false" />
+          <Property Name="LocationID" Type="Guid" Nullable="false" />
+          <Property Name="OwnerEntityID" Type="Guid" />
+          <Property Name="OfficeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PaysOverheads" Type="Boolean" Nullable="false" />
+          <Property Name="CurrentSuccessRate" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="InsertedOn" Type="DateTime" Precision="3" />
+          <Property Name="InsertedBy" Type="Guid" />
+          <Property Name="InsertedByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Guid" />
+          <Property Name="UpdatedByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LUCOfficeStatus" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="GenisysID" Type="Guid" Nullable="false" />
+          <Property Name="isNewOffice" Type="Boolean" Nullable="false" />
+          <Property Name="OfficeWeighting" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ParentSalesChannelID" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="SalesChannelID" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BouquetOffice" Relationship="Self.FK_BouquetOffice_Office" FromRole="Office" ToRole="BouquetOffice" />
+        </EntityType>
+        <EntityType Name="BouquetOffice">
+          <Key>
+            <PropertyRef Name="OfficeCode" />
+            <PropertyRef Name="SalesChannelID" />
+            <PropertyRef Name="ParentSalesChannelID" />
+            <PropertyRef Name="BouquetPrefix" />
+          </Key>
+          <Property Name="OfficeCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SalesChannelID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ParentSalesChannelID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BouquetPrefix" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CountryID" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="InsertedOn" Type="DateTime" Precision="3" />
+          <Property Name="InsertedBy" Type="Guid" />
+          <Property Name="InsertedByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StrokeStructure" Type="Int32" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="DeletedBy" Type="Guid" />
+          <Property Name="DeletedByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="GenisysID" Type="Guid" Nullable="false" />
+          <Property Name="LUCPayoutStructure" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsCashEnabled" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Office" Relationship="Self.FK_BouquetOffice_Office" FromRole="BouquetOffice" ToRole="Office" />
+        </EntityType>
+        <Association Name="FK_BouquetOffice_Office">
+          <End Role="Office" Type="Self.Office" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BouquetOffice" Type="Self.BouquetOffice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Office">
+              <PropertyRef Name="OfficeCode" />
+            </Principal>
+            <Dependent Role="BouquetOffice">
+              <PropertyRef Name="OfficeCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GeniSysEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="MerchCode" EntityType="Self.MerchCode" />
+          <EntitySet Name="Office" EntityType="Self.Office" />
+          <EntitySet Name="BouquetOffice" EntityType="Self.BouquetOffice" />
+          <AssociationSet Name="FK_BouquetOffice_Office" Association="Self.FK_BouquetOffice_Office">
+            <End Role="Office" EntitySet="Office" />
+            <End Role="BouquetOffice" EntitySet="BouquetOffice" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GeniSysModelStoreContainer" CdmEntityContainer="GeniSysEntities">
+          <EntitySetMapping Name="MerchCode">
+            <EntityTypeMapping TypeName="GeniSysModel.MerchCode">
+              <MappingFragment StoreEntitySet="MerchCode">
+                <ScalarProperty Name="OfficeCode" ColumnName="OfficeCode" />
+                <ScalarProperty Name="MerchCode1" ColumnName="MerchCode" />
+                <ScalarProperty Name="EffectiveDate" ColumnName="EffectiveDate" />
+                <ScalarProperty Name="GlobalEntityID" ColumnName="GlobalEntityID" />
+                <ScalarProperty Name="MerchLevelID" ColumnName="MerchLevelID" />
+                <ScalarProperty Name="LUCMerchStatus" ColumnName="LUCMerchStatus" />
+                <ScalarProperty Name="CurrentRate" ColumnName="CurrentRate" />
+                <ScalarProperty Name="SavingsBalance" ColumnName="SavingsBalance" />
+                <ScalarProperty Name="LegacyMerchLevelID" ColumnName="LegacyMerchLevelID" />
+                <ScalarProperty Name="LegacyMerchandiserCodeID" ColumnName="LegacyMerchandiserCodeID" />
+                <ScalarProperty Name="LegacyMerchID" ColumnName="LegacyMerchID" />
+                <ScalarProperty Name="Latest" ColumnName="Latest" />
+                <ScalarProperty Name="GenisysID" ColumnName="GenisysID" />
+                <ScalarProperty Name="AwaitingSponsorCode" ColumnName="AwaitingSponsorCode" />
+                <ScalarProperty Name="InsertedBy" ColumnName="InsertedBy" />
+                <ScalarProperty Name="InsertedByName" ColumnName="InsertedByName" />
+                <ScalarProperty Name="InsertedOn" ColumnName="InsertedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedByName" ColumnName="UpdatedByName" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="InvestmentSlushFund" ColumnName="InvestmentSlushFund" />
+                <ScalarProperty Name="OwnerSlushFund" ColumnName="OwnerSlushFund" />
+                <ScalarProperty Name="isPIP" ColumnName="isPIP" />
+                <ScalarProperty Name="CODLevel" ColumnName="CODLevel" />
+                <ScalarProperty Name="InvestmentFund" ColumnName="InvestmentFund" />
+                <ScalarProperty Name="OwnerFund" ColumnName="OwnerFund" />
+                <ScalarProperty Name="LUCHighestQualification" ColumnName="LUCHighestQualification" />
+                <ScalarProperty Name="EventFundBalance" ColumnName="EventFundBalance" />
+                <ScalarProperty Name="RallyFundBalance" ColumnName="RallyFundBalance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Office">
+            <EntityTypeMapping TypeName="GeniSysModel.Office">
+              <MappingFragment StoreEntitySet="Office">
+                <ScalarProperty Name="OfficeCode" ColumnName="OfficeCode" />
+                <ScalarProperty Name="GlobalEntityID" ColumnName="GlobalEntityID" />
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+                <ScalarProperty Name="OwnerEntityID" ColumnName="OwnerEntityID" />
+                <ScalarProperty Name="OfficeName" ColumnName="OfficeName" />
+                <ScalarProperty Name="PaysOverheads" ColumnName="PaysOverheads" />
+                <ScalarProperty Name="CurrentSuccessRate" ColumnName="CurrentSuccessRate" />
+                <ScalarProperty Name="InsertedOn" ColumnName="InsertedOn" />
+                <ScalarProperty Name="InsertedBy" ColumnName="InsertedBy" />
+                <ScalarProperty Name="InsertedByName" ColumnName="InsertedByName" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedByName" ColumnName="UpdatedByName" />
+                <ScalarProperty Name="LUCOfficeStatus" ColumnName="LUCOfficeStatus" />
+                <ScalarProperty Name="GenisysID" ColumnName="GenisysID" />
+                <ScalarProperty Name="isNewOffice" ColumnName="isNewOffice" />
+                <ScalarProperty Name="OfficeWeighting" ColumnName="OfficeWeighting" />
+                <ScalarProperty Name="ParentSalesChannelID" ColumnName="ParentSalesChannelID" />
+                <ScalarProperty Name="SalesChannelID" ColumnName="SalesChannelID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BouquetOffice">
+            <EntityTypeMapping TypeName="GeniSysModel.BouquetOffice">
+              <MappingFragment StoreEntitySet="BouquetOffice">
+                <ScalarProperty Name="OfficeCode" ColumnName="OfficeCode" />
+                <ScalarProperty Name="SalesChannelID" ColumnName="SalesChannelID" />
+                <ScalarProperty Name="ParentSalesChannelID" ColumnName="ParentSalesChannelID" />
+                <ScalarProperty Name="BouquetPrefix" ColumnName="BouquetPrefix" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="InsertedOn" ColumnName="InsertedOn" />
+                <ScalarProperty Name="InsertedBy" ColumnName="InsertedBy" />
+                <ScalarProperty Name="InsertedByName" ColumnName="InsertedByName" />
+                <ScalarProperty Name="StrokeStructure" ColumnName="StrokeStructure" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+                <ScalarProperty Name="DeletedByName" ColumnName="DeletedByName" />
+                <ScalarProperty Name="GenisysID" ColumnName="GenisysID" />
+                <ScalarProperty Name="LUCPayoutStructure" ColumnName="LUCPayoutStructure" />
+                <ScalarProperty Name="IsCashEnabled" ColumnName="IsCashEnabled" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
