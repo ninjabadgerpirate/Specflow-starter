@@ -10,7 +10,12 @@ namespace MyProject.Specs.Data.Product
     /// </summary>
     public class BouquetOfficeData : IBouquetOfficeData
     {
-        private GeniSysEntities db = new GeniSysEntities();
+        private GeniSysEntities db;
+
+        public BouquetOfficeData()
+        {
+            db = new GeniSysEntities();
+        }
 
         /// <summary>
         /// This method returns all the Bouquets that match the office code.
@@ -33,10 +38,5 @@ namespace MyProject.Specs.Data.Product
 
             return result;
         }
-    }
-
-    public interface IBouquetOfficeData
-    {
-        IList<BouquetOffice> ReturnBouquetsForOfficeCode(string officeCode, ref string errorMessage);
     }
 }

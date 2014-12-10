@@ -31,8 +31,8 @@ namespace MyProjects.Specs.UnitTests.Features
         public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "MerchandiserInfo", "In order to sell policies to customers \r\nusers need to enter an active office cod" +
-                    "e and merch code \r\nto view a list of bouquets to sell", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "MerchandiserInfo", "In order to sell policies to customers \r\nusers need to enter a valid office code " +
+                    "and merch code \r\nto view a list of bouquets to sell", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -69,9 +69,9 @@ namespace MyProjects.Specs.UnitTests.Features
             testRunner.CollectScenarioErrors();
         }
         
-        public virtual void DisplayBouquetsThatCanBeSoldBasedOnOfficeCodeAndMerchCode(string response, string bouquetCount, string officeCode, string merchCode, string officeCodeIsValid, string merchCodeIsValid, string officeCodeExists, string merchCodeExists, string officeCodeIsActive, string merchCodeIsActive, string[] exampleTags)
+        public virtual void ReturnBouquetsForOfficeCodeAndMerchCodeWhere(string caseName, string officeCodeValidationResponse, string merchCodeValidationResponse, string bouquetCount, string officeCode, string merchCode, string officeCodeIsValid, string merchCodeIsValid, string officeCodeExists, string merchCodeExists, string officeCodeIsActive, string merchCodeIsActive, string[] exampleTags)
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Display bouquets that can be sold based on office code and merch code", exampleTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Return bouquets for office code and merch code where", exampleTags);
 #line 6
 this.ScenarioSetup(scenarioInfo);
 #line 7
@@ -79,16 +79,18 @@ this.ScenarioSetup(scenarioInfo);
 #line 8
     testRunner.When(string.Format("user enters the \'{0}\' \'{1}\'", officeCode, merchCode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 9
-    testRunner.Then(string.Format("the result should match \'{0}\' {1} {2} {3} {4} {5} {6} {7}", response, bouquetCount, officeCodeIsValid, merchCodeIsValid, officeCodeExists, merchCodeExists, officeCodeIsActive, merchCodeIsActive), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.Then(string.Format("the result should match \'{0}\' \'{1}\' {2} {3} {4} {5} {6} {7} {8}", officeCodeValidationResponse, merchCodeValidationResponse, bouquetCount, officeCodeIsValid, merchCodeIsValid, officeCodeExists, merchCodeExists, officeCodeIsActive, merchCodeIsActive), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Display bouquets that can be sold based on office code and merch code")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Return bouquets for office code and merch code where")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "MerchandiserInfo")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "InvalidOfficeCode")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Response", "InvalidOfficeCode")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:CaseName", "InvalidOfficeCode")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:OfficeCodeValidationResponse", "InvalidOfficeCode")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:MerchCodeValidationResponse", "NoMerchCode")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:BouquetCount", "0")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:OfficeCode", "000")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:MerchCode", "")]
@@ -98,16 +100,18 @@ this.ScenarioSetup(scenarioInfo);
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:MerchCodeExists", "false")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:OfficeCodeIsActive", "false")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:MerchCodeIsActive", "false")]
-        public virtual void DisplayBouquetsThatCanBeSoldBasedOnOfficeCodeAndMerchCode_InvalidOfficeCode()
+        public virtual void ReturnBouquetsForOfficeCodeAndMerchCodeWhere_InvalidOfficeCode()
         {
-            this.DisplayBouquetsThatCanBeSoldBasedOnOfficeCodeAndMerchCode("InvalidOfficeCode", "0", "000", "", "false", "false", "false", "false", "false", "false", ((string[])(null)));
+            this.ReturnBouquetsForOfficeCodeAndMerchCodeWhere("InvalidOfficeCode", "InvalidOfficeCode", "NoMerchCode", "0", "000", "", "false", "false", "false", "false", "false", "false", ((string[])(null)));
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Display bouquets that can be sold based on office code and merch code")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Return bouquets for office code and merch code where")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "MerchandiserInfo")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "InactiveOfficeCode")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Response", "InactiveOfficeCode")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:CaseName", "InactiveOfficeCode")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:OfficeCodeValidationResponse", "InactiveOfficeCode")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:MerchCodeValidationResponse", "NoMerchCode")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:BouquetCount", "0")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:OfficeCode", "000002")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:MerchCode", "")]
@@ -117,16 +121,18 @@ this.ScenarioSetup(scenarioInfo);
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:MerchCodeExists", "false")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:OfficeCodeIsActive", "false")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:MerchCodeIsActive", "false")]
-        public virtual void DisplayBouquetsThatCanBeSoldBasedOnOfficeCodeAndMerchCode_InactiveOfficeCode()
+        public virtual void ReturnBouquetsForOfficeCodeAndMerchCodeWhere_InactiveOfficeCode()
         {
-            this.DisplayBouquetsThatCanBeSoldBasedOnOfficeCodeAndMerchCode("InactiveOfficeCode", "0", "000002", "", "true", "false", "true", "false", "false", "false", ((string[])(null)));
+            this.ReturnBouquetsForOfficeCodeAndMerchCodeWhere("InactiveOfficeCode", "InactiveOfficeCode", "NoMerchCode", "0", "000002", "", "true", "false", "true", "false", "false", "false", ((string[])(null)));
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Display bouquets that can be sold based on office code and merch code")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Return bouquets for office code and merch code where")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "MerchandiserInfo")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "OfficeCodeDoesnotExist")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Response", "OfficeCodeDoesnotExist")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "OfficeCodeDoesNotExist")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:CaseName", "OfficeCodeDoesNotExist")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:OfficeCodeValidationResponse", "OfficeCodeDoesNotExist")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:MerchCodeValidationResponse", "NoMerchCode")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:BouquetCount", "0")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:OfficeCode", "965652")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:MerchCode", "")]
@@ -136,16 +142,18 @@ this.ScenarioSetup(scenarioInfo);
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:MerchCodeExists", "false")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:OfficeCodeIsActive", "false")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:MerchCodeIsActive", "false")]
-        public virtual void DisplayBouquetsThatCanBeSoldBasedOnOfficeCodeAndMerchCode_OfficeCodeDoesnotExist()
+        public virtual void ReturnBouquetsForOfficeCodeAndMerchCodeWhere_OfficeCodeDoesNotExist()
         {
-            this.DisplayBouquetsThatCanBeSoldBasedOnOfficeCodeAndMerchCode("OfficeCodeDoesnotExist", "0", "965652", "", "true", "false", "false", "false", "false", "false", ((string[])(null)));
+            this.ReturnBouquetsForOfficeCodeAndMerchCodeWhere("OfficeCodeDoesNotExist", "OfficeCodeDoesNotExist", "NoMerchCode", "0", "965652", "", "true", "false", "false", "false", "false", "false", ((string[])(null)));
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Display bouquets that can be sold based on office code and merch code")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Return bouquets for office code and merch code where")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "MerchandiserInfo")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "NoMerchCode")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Response", "NoMerchCode")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:CaseName", "NoMerchCode")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:OfficeCodeValidationResponse", "Valid")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:MerchCodeValidationResponse", "NoMerchCode")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:BouquetCount", "0")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:OfficeCode", "000000")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:MerchCode", "")]
@@ -155,16 +163,18 @@ this.ScenarioSetup(scenarioInfo);
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:MerchCodeExists", "false")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:OfficeCodeIsActive", "true")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:MerchCodeIsActive", "false")]
-        public virtual void DisplayBouquetsThatCanBeSoldBasedOnOfficeCodeAndMerchCode_NoMerchCode()
+        public virtual void ReturnBouquetsForOfficeCodeAndMerchCodeWhere_NoMerchCode()
         {
-            this.DisplayBouquetsThatCanBeSoldBasedOnOfficeCodeAndMerchCode("NoMerchCode", "0", "000000", "", "true", "false", "true", "false", "true", "false", ((string[])(null)));
+            this.ReturnBouquetsForOfficeCodeAndMerchCodeWhere("NoMerchCode", "Valid", "NoMerchCode", "0", "000000", "", "true", "false", "true", "false", "true", "false", ((string[])(null)));
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Display bouquets that can be sold based on office code and merch code")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Return bouquets for office code and merch code where")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "MerchandiserInfo")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "InvalidMerchCode")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Response", "InvalidMerchCode")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:CaseName", "InvalidMerchCode")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:OfficeCodeValidationResponse", "NoOfficeCode")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:MerchCodeValidationResponse", "InvalidMerchCode")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:BouquetCount", "0")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:OfficeCode", "")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:MerchCode", "000")]
@@ -174,16 +184,18 @@ this.ScenarioSetup(scenarioInfo);
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:MerchCodeExists", "false")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:OfficeCodeIsActive", "false")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:MerchCodeIsActive", "false")]
-        public virtual void DisplayBouquetsThatCanBeSoldBasedOnOfficeCodeAndMerchCode_InvalidMerchCode()
+        public virtual void ReturnBouquetsForOfficeCodeAndMerchCodeWhere_InvalidMerchCode()
         {
-            this.DisplayBouquetsThatCanBeSoldBasedOnOfficeCodeAndMerchCode("InvalidMerchCode", "0", "", "000", "false", "false", "false", "false", "false", "false", ((string[])(null)));
+            this.ReturnBouquetsForOfficeCodeAndMerchCodeWhere("InvalidMerchCode", "NoOfficeCode", "InvalidMerchCode", "0", "", "000", "false", "false", "false", "false", "false", "false", ((string[])(null)));
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Display bouquets that can be sold based on office code and merch code")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Return bouquets for office code and merch code where")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "MerchandiserInfo")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "InactiveMerchCode")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Response", "InactiveMerchCode")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:CaseName", "InactiveMerchCode")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:OfficeCodeValidationResponse", "NoOfficeCode")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:MerchCodeValidationResponse", "InactiveMerchCode")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:BouquetCount", "0")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:OfficeCode", "")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:MerchCode", "000001")]
@@ -193,16 +205,18 @@ this.ScenarioSetup(scenarioInfo);
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:MerchCodeExists", "true")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:OfficeCodeIsActive", "false")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:MerchCodeIsActive", "false")]
-        public virtual void DisplayBouquetsThatCanBeSoldBasedOnOfficeCodeAndMerchCode_InactiveMerchCode()
+        public virtual void ReturnBouquetsForOfficeCodeAndMerchCodeWhere_InactiveMerchCode()
         {
-            this.DisplayBouquetsThatCanBeSoldBasedOnOfficeCodeAndMerchCode("InactiveMerchCode", "0", "", "000001", "false", "true", "false", "true", "false", "false", ((string[])(null)));
+            this.ReturnBouquetsForOfficeCodeAndMerchCodeWhere("InactiveMerchCode", "NoOfficeCode", "InactiveMerchCode", "0", "", "000001", "false", "true", "false", "true", "false", "false", ((string[])(null)));
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Display bouquets that can be sold based on office code and merch code")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Return bouquets for office code and merch code where")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "MerchandiserInfo")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "MerchCodeDoesNotExist")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Response", "MerchCodeDoesNotExist")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:CaseName", "MerchCodeDoesNotExist")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:OfficeCodeValidationResponse", "NoOfficeCode")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:MerchCodeValidationResponse", "MerchCodeDoesNotExist")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:BouquetCount", "0")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:OfficeCode", "")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:MerchCode", "654634")]
@@ -212,16 +226,18 @@ this.ScenarioSetup(scenarioInfo);
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:MerchCodeExists", "false")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:OfficeCodeIsActive", "false")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:MerchCodeIsActive", "false")]
-        public virtual void DisplayBouquetsThatCanBeSoldBasedOnOfficeCodeAndMerchCode_MerchCodeDoesNotExist()
+        public virtual void ReturnBouquetsForOfficeCodeAndMerchCodeWhere_MerchCodeDoesNotExist()
         {
-            this.DisplayBouquetsThatCanBeSoldBasedOnOfficeCodeAndMerchCode("MerchCodeDoesNotExist", "0", "", "654634", "false", "true", "false", "false", "false", "false", ((string[])(null)));
+            this.ReturnBouquetsForOfficeCodeAndMerchCodeWhere("MerchCodeDoesNotExist", "NoOfficeCode", "MerchCodeDoesNotExist", "0", "", "654634", "false", "true", "false", "false", "false", "false", ((string[])(null)));
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Display bouquets that can be sold based on office code and merch code")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Return bouquets for office code and merch code where")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "MerchandiserInfo")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "NoOfficeCode")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Response", "NoOfficeCode")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:CaseName", "NoOfficeCode")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:OfficeCodeValidationResponse", "NoOfficeCode")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:MerchCodeValidationResponse", "Valid")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:BouquetCount", "0")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:OfficeCode", "")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:MerchCode", "000000")]
@@ -231,16 +247,18 @@ this.ScenarioSetup(scenarioInfo);
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:MerchCodeExists", "true")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:OfficeCodeIsActive", "false")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:MerchCodeIsActive", "true")]
-        public virtual void DisplayBouquetsThatCanBeSoldBasedOnOfficeCodeAndMerchCode_NoOfficeCode()
+        public virtual void ReturnBouquetsForOfficeCodeAndMerchCodeWhere_NoOfficeCode()
         {
-            this.DisplayBouquetsThatCanBeSoldBasedOnOfficeCodeAndMerchCode("NoOfficeCode", "0", "", "000000", "false", "true", "false", "true", "false", "true", ((string[])(null)));
+            this.ReturnBouquetsForOfficeCodeAndMerchCodeWhere("NoOfficeCode", "NoOfficeCode", "Valid", "0", "", "000000", "false", "true", "false", "true", "false", "true", ((string[])(null)));
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Display bouquets that can be sold based on office code and merch code")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Return bouquets for office code and merch code where")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "MerchandiserInfo")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "Valid")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Response", "Valid")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:CaseName", "Valid")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:OfficeCodeValidationResponse", "Valid")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:MerchCodeValidationResponse", "Valid")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:BouquetCount", "2")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:OfficeCode", "000000")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:MerchCode", "000000")]
@@ -250,9 +268,9 @@ this.ScenarioSetup(scenarioInfo);
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:MerchCodeExists", "true")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:OfficeCodeIsActive", "true")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:MerchCodeIsActive", "true")]
-        public virtual void DisplayBouquetsThatCanBeSoldBasedOnOfficeCodeAndMerchCode_Valid()
+        public virtual void ReturnBouquetsForOfficeCodeAndMerchCodeWhere_Valid()
         {
-            this.DisplayBouquetsThatCanBeSoldBasedOnOfficeCodeAndMerchCode("Valid", "2", "000000", "000000", "true", "true", "true", "true", "true", "true", ((string[])(null)));
+            this.ReturnBouquetsForOfficeCodeAndMerchCodeWhere("Valid", "Valid", "Valid", "2", "000000", "000000", "true", "true", "true", "true", "true", "true", ((string[])(null)));
         }
     }
 }

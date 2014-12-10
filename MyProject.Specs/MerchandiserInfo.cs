@@ -1,4 +1,5 @@
-﻿using MyProject.Specs.Models.GlobalEntity;
+﻿using MyProject.Specs.Models;
+using MyProject.Specs.Models.GlobalEntity;
 using MyProject.Specs.Models.Product;
 
 namespace MyProject.Specs
@@ -15,10 +16,5 @@ namespace MyProject.Specs
             bouquetOfficeModel = new BouquetOfficeModel();
             merchModel = new MerchModel();
         }
-    }
-
-    public interface IMerchandiserInfo
-    {
-        
     }
 }

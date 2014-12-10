@@ -48,9 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\GlobalEntity\IMerchData.cs" />
+    <Compile Include="Data\GlobalEntity\IOfficeData.cs" />
     <Compile Include="Data\GlobalEntity\MerchData.cs" />
     <Compile Include="Data\GlobalEntity\OfficeData.cs" />
     <Compile Include="Data\Product\BouquetOfficeData.cs" />
+    <Compile Include="Data\Product\IBouquetOfficeData.cs" />
     <Compile Include="Entity\BouquetOffice.cs">
       <DependentUpon>GenisysEntities.tt</DependentUpon>
     </Compile>
@@ -75,13 +78,21 @@
     <Compile Include="Entity\Office.cs">
       <DependentUpon>GenisysEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Enums\MerchCodeResponseEnum.cs" />
-    <Compile Include="Enums\OfficeResponseEnum.cs" />
+    <Compile Include="Enums\MerchCodeValidationResponseEnum.cs" />
+    <Compile Include="Enums\OfficeValidationResponseEnum.cs" />
+    <Compile Include="IMerchandiserInfo.cs" />
     <Compile Include="MerchandiserInfo.cs" />
+    <Compile Include="Models\GlobalEntity\IOfficeModel.cs" />
     <Compile Include="Models\GlobalEntity\MerchModel.cs" />
     <Compile Include="Models\GlobalEntity\OfficeModel.cs" />
+    <Compile Include="Models\GlobalEntity\IMerchModel.cs" />
     <Compile Include="Models\Product\BouquetOfficeModel.cs" />
+    <Compile Include="Models\Product\IBouquetOfficeModel.cs" />
+    <Compile Include="Models\ResponseObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\BouquetOfficeViewModel.cs" />
+    <Compile Include="ViewModels\MerchViewModel.cs" />
+    <Compile Include="ViewModels\OfficeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="Entity\GenisysEntities.edmx">

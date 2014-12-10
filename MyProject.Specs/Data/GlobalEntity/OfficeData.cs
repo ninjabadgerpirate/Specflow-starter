@@ -43,9 +43,4 @@ namespace MyProject.Specs.Data.GlobalEntity
             return result;
         }
     }
-
-    public interface IOfficeData
-    {
-        IList<Office> FindMatchingOffices(string officeCode, ref string errorMessage);
-    }
 }

@@ -10,7 +10,15 @@ namespace MyProject.Specs.Data.GlobalEntity
     /// </summary>
     public class MerchData : IMerchData
     {
-        private GeniSysEntities db = new GeniSysEntities();
+        private GeniSysEntities db;
+
+        /// <summary>
+        /// The default constructor for this class.
+        /// </summary>
+        public MerchData()
+        {
+            db = new GeniSysEntities();
+        }
 
         /// <summary>
         /// This method checks to see if the merch code that you have entered exists in the GlobalEntity.MerchCode table.
@@ -34,10 +42,5 @@ namespace MyProject.Specs.Data.GlobalEntity
 
             return result;
         }
-    }
-
-    public interface IMerchData
-    {
-        List<MerchCode> FindMatchingMerchCodes(string merchCode, ref string errorMessage);
     }
 }

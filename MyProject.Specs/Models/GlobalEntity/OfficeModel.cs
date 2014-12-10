@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using MyProject.Specs.Data.GlobalEntity;
 using MyProject.Specs.Entity;
+using MyProject.Specs.Enums;
+using MyProject.Specs.ViewModels;
 
 namespace MyProject.Specs.Models.GlobalEntity
 {
@@ -10,87 +13,209 @@ namespace MyProject.Specs.Models.GlobalEntity
     /// </summary>
     public class OfficeModel : IOfficeModel
     {
-        public IOfficeData db;
+        public IOfficeData _OfficeData;
 
         /// <summary>
         /// Default constructor.
         /// </summary>
         public OfficeModel()
         {
-            db = new OfficeData();
+            _OfficeData = new OfficeData();
         }
 
         /// <summary>
         /// Constructor method that allows you to inject database repository.
         /// </summary>
-        /// <param name="_db"></param>
-        public OfficeModel(IOfficeData _db)
+        /// <param name="officeData">Any class that inherits the IOfficeData</param>
+        public OfficeModel(IOfficeData officeData)
         {
-            db = _db;
+            _OfficeData = officeData;
+        }
+
+        /// <summary>
+        /// This method wraps up the Office Code Validity/Existence/Active validation methods.
+        /// </summary>
+        /// <param name="officeCode">The office code you are validating</param>
+        /// <returns>An office view model containing the validity response.</returns>
+        public OfficeViewModel ValidateOfficeCode(string officeCode)
+        {
+            var officeViewModel  = OfficeCodeIsValid(officeCode);
+            if (!officeViewModel.IsValid)
+            {
+                return officeViewModel;
+            }
+
+            officeViewModel = OfficeCodeExists(officeCode);
+            if (!officeViewModel.IsValid)
+            {
+                return officeViewModel;
+            }
+
+            officeViewModel = OfficeCodeIsActive(officeCode);
+            if (!officeViewModel.IsValid)
+            {
+                return officeViewModel;
+            }
+            officeViewModel.OfficeCodeValidationResponse = OfficeCodeValidationResponseEnum.Valid;
+            return officeViewModel;
         }
 
         /// <summary>
         /// This method checks to see if the office code that you have entered is a valid office code.
         /// </summary>
         /// <param name="officeCode">The office code that you want to check validity for.</param>
-        /// <param name="errorMessage">Any errors that occurred while checking the validity of the office code.</param>
-        /// <returns>A boolean value indicating whether the office code is valid.</returns>
-        public bool OfficeCodeIsValid(string officeCode, ref string errorMessage)
+        /// <returns>An office view model containing the validity response.</returns>
+        public OfficeViewModel OfficeCodeIsValid(string officeCode)
         {
             bool result = false;
-            if (!string.IsNullOrEmpty(officeCode))
+            OfficeViewModel officeViewModel = new OfficeViewModel();
+            string errorMessage = string.Empty;
+
+            try
             {
-                result = officeCode.Length == 6;
-                int n;
-                if (!int.TryParse(officeCode, out n))
+                if (!string.IsNullOrEmpty(officeCode))
                 {
-                    result = false;
+                    result = officeCode.Length == 6;
+                    int n;
+
+                    if (result)
+                    {
+                        if (!int.TryParse(officeCode, out n))
+                        {
+                            officeViewModel.OfficeCodeValidationResponse =
+                                OfficeCodeValidationResponseEnum.InvalidOfficeCode;
+                            result = false;
+                        }
+                    }
+                    else
+                    {
+                        officeViewModel.OfficeCodeValidationResponse = OfficeCodeValidationResponseEnum.InvalidOfficeCode;
+                    }
                 }
+                else
+                {
+                    officeViewModel.OfficeCodeValidationResponse = OfficeCodeValidationResponseEnum.NoOfficeCode;
+                }
+                officeViewModel.IsValid = result;
             }
-            return result;
+            catch (Exception ex)
+            {
+                errorMessage = ex.ToString();
+            }
+
+            if (!string.IsNullOrEmpty(errorMessage))
+            {
+                officeViewModel.ResponseStatus = ResponseStatus.Failed;
+                officeViewModel.ResponseMessage = errorMessage;
+            }
+            else
+            {
+                officeViewModel.ResponseStatus = ResponseStatus.Success;
+            }
+            
+            officeViewModel.ResponseDateTime = DateTime.Now;
+
+            return officeViewModel;
         }
 
         /// <summary>
         /// This method checks to see if the office code that you have entered exists in the GlobalEntity.Office.
         /// </summary>
         /// <param name="officeCode">The office code that you want to check.</param>
-        /// <param name="errorMessage">An error message that you want to return to the caller.</param>
-        /// <returns>A boolean value indicating whether the office exists.</returns>
-        public bool OfficeCodeExists(string officeCode, ref string errorMessage)
+        /// <returns>An office view model containing the validity response.</returns>
+        public OfficeViewModel OfficeCodeExists(string officeCode)
         {
-            var result = false;
-            if (!string.IsNullOrEmpty(officeCode))
+            OfficeViewModel officeViewModel = new OfficeViewModel();
+            string errorMessage = string.Empty;
+            bool result = false;
+
+            try
             {
-                IList<Office> data = db.FindMatchingOffices(officeCode, ref errorMessage);
-                result = data.Any(x => x.OfficeCode == officeCode);
+                if (!string.IsNullOrEmpty(officeCode))
+                {
+                    IList<Office> data = _OfficeData.FindMatchingOffices(officeCode, ref errorMessage);
+                    result = data.Any(x => x.OfficeCode == officeCode);
+                }
             }
-            
-            return result;
+            catch (Exception ex)
+            {
+                errorMessage = ex.ToString();
+            }
+
+            if (string.IsNullOrEmpty(errorMessage))
+            {
+                if (result)
+                {
+                    //officeViewModel.OfficeCodeValidationResponse = OfficeCodeValidationResponseEnum.Valid;
+                }
+                else
+                {
+                    officeViewModel.OfficeCodeValidationResponse = OfficeCodeValidationResponseEnum.OfficeCodeDoesNotExist;
+                }
+
+                
+                officeViewModel.ResponseStatus = ResponseStatus.Success;
+            }
+            else
+            {
+                officeViewModel.ResponseStatus = ResponseStatus.Failed;
+            }
+
+            officeViewModel.IsValid = result;
+            officeViewModel.ResponseMessage = errorMessage;
+            officeViewModel.ResponseDateTime = DateTime.Now;
+
+            return officeViewModel;
         }
 
         /// <summary>
         /// This method checks to see if the office code that you have entered is valid and exists
         /// </summary>
         /// <param name="officeCode">The office code that you want to check.</param>
-        /// <param name="errorMessage">An error message that you want to return to the caller.</param>
         /// <returns>A boolean value indicating whether the office exists.</returns>
-        public bool OfficeCodeIsActive(string officeCode, ref string errorMessage)
+        public OfficeViewModel OfficeCodeIsActive(string officeCode)
         {
+            OfficeViewModel officeViewModel = new OfficeViewModel();
             bool result = false;
+            string errorMessage = string.Empty;
 
-            if (!string.IsNullOrEmpty(officeCode))
+            try
             {
-                IList<Office> data = db.FindMatchingOffices(officeCode, ref errorMessage);
-                result = data.Any(x => x.OfficeCode == officeCode && x.LUCOfficeStatus == "Active");
+                if (!string.IsNullOrEmpty(officeCode))
+                {
+                    IList<Office> data = _OfficeData.FindMatchingOffices(officeCode, ref errorMessage);
+                    result = data.Any(x => x.OfficeCode == officeCode && x.LUCOfficeStatus == "Active");
+                    officeViewModel.IsValid = result;
+                }
             }
-            return result;
-        }
-    }
+            catch (Exception ex)
+            {
+                errorMessage = ex.ToString();
+            }
 
-    public interface IOfficeModel
-    {
-        bool OfficeCodeExists(string officeCode, ref string errorMessage);
-        bool OfficeCodeIsActive(string officeCode, ref string errorMessage);
-        bool OfficeCodeIsValid(string officeCode, ref string errorMessage);
+            if (string.IsNullOrEmpty(errorMessage))
+            {
+                if (result)
+                {
+                    //officeViewModel.OfficeCodeValidationResponse = OfficeCodeValidationResponseEnum.Valid;
+                }
+                else
+                {
+                    officeViewModel.OfficeCodeValidationResponse = OfficeCodeValidationResponseEnum.InactiveOfficeCode;
+                }
+
+                officeViewModel.ResponseStatus = ResponseStatus.Success;
+            }
+            else
+            {
+                officeViewModel.ResponseStatus = ResponseStatus.Failed;
+            }
+
+            officeViewModel.ResponseMessage = errorMessage;
+            officeViewModel.ResponseDateTime = DateTime.Now;
+            officeViewModel.IsValid = result;
+
+            return officeViewModel;
+        }
     }
 }

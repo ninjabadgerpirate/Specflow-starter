@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MyProject.Specs.Enums;
 using MyProject.Specs.Models.GlobalEntity;
 using MyProject.Specs.Models.Product;
 using MyProjects.Specs.UnitTests.Models.GlobalEntity.Mock;
@@ -14,9 +15,7 @@ namespace MyProjects.Specs.UnitTests
     {
         public string OfficeCode { get; set; }
         public string MerchCode { get; set; }
-        public string Response { get; set; }
         public int BouquetCount { get; set; }
-        public bool IsValid { get; set; }
         public bool OfficeCodeIsValid { get; set; }
         public bool OfficeCodeExists { get; set; }
         public bool OfficeCodeIsActive { get; set; }
@@ -24,6 +23,8 @@ namespace MyProjects.Specs.UnitTests
         public bool MerchCodeIsValid { get; set; }
         public bool MerchCodeExists { get; set; }
         public bool MerchCodeIsActive { get; set; }
+        public OfficeCodeValidationResponseEnum OfficeCodeValidationResponse { get; set; }
+        public MerchCodeValidationResponseEnum MerchCodeValidationResponse { get; set; }
     }
 
     [Binding]
@@ -60,23 +61,40 @@ namespace MyProjects.Specs.UnitTests
             var bouquetOfficeDataMock = new BouquetOfficeDataMock();
             var bouquetOfficeModel = new BouquetOfficeModel(bouquetOfficeDataMock);
 
-            string errorMessage = string.Empty;
-
             _testResult.OfficeCode = officeCode;
-            _testResult.MerchCode = merchCode;        
+            _testResult.MerchCode = merchCode;
 
-            _testResult.OfficeCodeIsValid = officeModel.OfficeCodeIsValid(officeCode, ref errorMessage);
-            _testResult.OfficeCodeExists = officeModel.OfficeCodeExists(officeCode, ref errorMessage);
-            _testResult.OfficeCodeIsActive = officeModel.OfficeCodeIsActive(officeCode, ref errorMessage);
+            #region Office Validation Tests
+            _testResult.OfficeCodeIsValid = officeModel.OfficeCodeIsValid(officeCode).IsValid;
+            _testResult.OfficeCodeExists = officeModel.OfficeCodeExists(officeCode).IsValid;
+            _testResult.OfficeCodeIsActive = officeModel.OfficeCodeIsActive(officeCode).IsValid;
+            _testResult.OfficeCodeValidationResponse = officeModel.ValidateOfficeCode(officeCode).OfficeCodeValidationResponse;
 
-            _testResult.MerchCodeIsValid = merchModel.MerchCodeIsValid(merchCode, ref errorMessage);
-            _testResult.MerchCodeExists = merchModel.MerchCodeExists(merchCode, ref errorMessage);
-            _testResult.MerchCodeIsActive = merchModel.MerchCodeIsActive(merchCode, ref errorMessage);
+            //If all the above true, then the Office is valid?
+            if (_testResult.OfficeCodeIsValid && _testResult.OfficeCodeExists && _testResult.OfficeCodeIsActive)
+            {
+                _testResult.OfficeCodeValidationResponse = OfficeCodeValidationResponseEnum.Valid;
+            }
+            #endregion
 
+            #region MerchCode Validation Tests
+            _testResult.MerchCodeIsValid = merchModel.MerchCodeIsValid(merchCode).IsValid;
+            _testResult.MerchCodeExists = merchModel.MerchCodeExists(merchCode).IsValid;
+            _testResult.MerchCodeIsActive = merchModel.MerchCodeIsActive(merchCode).IsValid;
+            _testResult.MerchCodeValidationResponse = merchModel.ValidateMerchCode(merchCode).MerchCodeValidationResponse;
+
+            if (_testResult.MerchCodeIsValid && _testResult.MerchCodeExists && _testResult.MerchCodeIsActive)
+            {
+                _testResult.MerchCodeValidationResponse = MerchCodeValidationResponseEnum.Valid;
+            }
+            #endregion
+            
+
+            //Get the Bouquets if no errors have occurred.
             if (_testResult.OfficeCodeIsValid && _testResult.OfficeCodeExists && _testResult.OfficeCodeIsActive &&
                 _testResult.MerchCodeIsValid && _testResult.MerchCodeExists && _testResult.MerchCodeIsActive)
             {
-                _testResult.BouquetCount = bouquetOfficeModel.ReturnBouquetsForOfficeCode(officeCode, ref errorMessage).Count;
+                _testResult.BouquetCount = bouquetOfficeModel.ReturnBouquetsForOfficeCode(officeCode).BouquetOffice.Count;
             }
         }
 
@@ -84,7 +102,8 @@ namespace MyProjects.Specs.UnitTests
         /// This is where the results from the model tests in the WhenUserEntersThe method 
         /// are checked for their accuracy against the Table defined as the example in the .features file.
         /// </summary>
-        /// <param name="Response">The expected response based on the data entered.</param>
+        /// <param name="OfficeCodeValidationResponse">The expected office validation response based on the data entered.</param>
+        /// <param name="MerchCodeValidationResponse">The expected merchant validation response based on the data entered.</param>
         /// <param name="BouquetCount">The number of bouquets that is expected to be returned.</param>
         /// <param name="OfficeCodeIsValid">Boolean value indicating whether the Office Code is valid.</param>
         /// <param name="MerchCodeIsValid">Boolean value indicating whether the Merch Code is valid.</param>
@@ -92,17 +111,19 @@ namespace MyProjects.Specs.UnitTests
         /// <param name="MerchCodeExists">Boolean value indicating whether the Merch Code exists.</param>
         /// <param name="OfficeCodeIsActive">Boolean value indicating whether the Office Code is active.</param>
         /// <param name="MerchCodeIsActive">Boolean value indicating whether the Merch Code is active.</param>
-        [Then(@"the result should match '(.*)' (.*) (.*) (.*) (.*) (.*) (.*) (.*)")]
-        public void ThenTheResultShouldMatch(string Response, int BouquetCount, bool OfficeCodeIsValid, bool MerchCodeIsValid, bool OfficeCodeExists, bool MerchCodeExists, bool OfficeCodeIsActive, bool MerchCodeIsActive)
+        [Then(@"the result should match '(.*)' '(.*)' (.*) (.*) (.*) (.*) (.*) (.*) (.*)")]
+        public void ThenTheResultShouldMatch(string OfficeCodeValidationResponse, string MerchCodeValidationResponse, int BouquetCount, bool OfficeCodeIsValid, bool MerchCodeIsValid, bool OfficeCodeExists, bool MerchCodeExists, bool OfficeCodeIsActive, bool MerchCodeIsActive)
         {
             Assert.AreEqual(_testResult.BouquetCount, BouquetCount);
             Assert.AreEqual(_testResult.OfficeCodeIsValid, OfficeCodeIsValid);
             Assert.AreEqual(_testResult.OfficeCodeExists, OfficeCodeExists);
             Assert.AreEqual(_testResult.OfficeCodeIsActive, OfficeCodeIsActive);
+            Assert.AreEqual(_testResult.OfficeCodeValidationResponse.ToString(), OfficeCodeValidationResponse);
 
             Assert.AreEqual(_testResult.MerchCodeIsValid, MerchCodeIsValid);
             Assert.AreEqual(_testResult.MerchCodeExists, MerchCodeExists);
             Assert.AreEqual(_testResult.MerchCodeIsActive, MerchCodeIsActive);
+            Assert.AreEqual(_testResult.MerchCodeValidationResponse.ToString(), MerchCodeValidationResponse);
         }
     }
 }
