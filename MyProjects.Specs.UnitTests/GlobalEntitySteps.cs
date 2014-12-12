@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MyProject.Specs.Data.GlobalEntity;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MyProject.Specs.Enums;
 using MyProject.Specs.Models.GlobalEntity;
 using MyProject.Specs.ViewModels;
@@ -37,21 +35,23 @@ namespace MyProjects.Specs.UnitTests
 
         public GlobalEntitySteps()
         {
-            _testResult = new GlobalEntityTestDto();
-            _testResult.GovID = string.Empty;
-            _testResult.FirstNames = string.Empty;
-            _testResult.Surname = string.Empty;
-            _testResult.PreferredName = string.Empty;
-            _testResult.Passport = string.Empty;
-            _testResult.CountryID = string.Empty;
-            _testResult.LUCPreferredLanguage = string.Empty;
-            _testResult.LUCMaritalStatus = string.Empty;
-            _testResult.EmployerName = string.Empty;
-            _testResult.EmployeeNo = string.Empty;
-            _testResult.SalaryPayDay = string.Empty;
-            _testResult.LUCIncomeCategory = string.Empty;
-            _testResult.IsStaff = false;
-            _testResult.LUCTitle = string.Empty;
+            _testResult = new GlobalEntityTestDto
+            {
+                GovID = string.Empty,
+                FirstNames = string.Empty,
+                Surname = string.Empty,
+                PreferredName = string.Empty,
+                Passport = string.Empty,
+                CountryID = string.Empty,
+                LUCPreferredLanguage = string.Empty,
+                LUCMaritalStatus = string.Empty,
+                EmployerName = string.Empty,
+                EmployeeNo = string.Empty,
+                SalaryPayDay = string.Empty,
+                LUCIncomeCategory = string.Empty,
+                IsStaff = false,
+                LUCTitle = string.Empty
+            };
         }
 
         [Given(@"that the user wants to load a customers account")]
