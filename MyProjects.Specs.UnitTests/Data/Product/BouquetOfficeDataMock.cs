@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using MyProject.Specs.Data.Product;
 using MyProject.Specs.Entity;
 
-namespace MyProjects.Specs.UnitTests.Models.Product.Mock
+namespace MyProjects.Specs.UnitTests.Data.Product
 {
     public class BouquetOfficeDataMock : IBouquetOfficeData
     {

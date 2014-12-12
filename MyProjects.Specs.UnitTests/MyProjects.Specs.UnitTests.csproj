@@ -57,15 +57,22 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Features\GlobalEntity.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GlobalEntity.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\MerchandiserInfo.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MerchandiserInfo.feature</DependentUpon>
     </Compile>
+    <Compile Include="GlobalEntitySteps.cs" />
     <Compile Include="MerchandiserInfoSteps.cs" />
-    <Compile Include="Models\GlobalEntity\Mock\MerchDataMock.cs" />
-    <Compile Include="Models\GlobalEntity\Mock\OfficeDataMock.cs" />
-    <Compile Include="Models\Product\Mock\BouquetOfficeDataMock.cs" />
+    <Compile Include="Data\GlobalEntity\GlobalEntityDataMock.cs" />
+    <Compile Include="Data\GlobalEntity\MerchDataMock.cs" />
+    <Compile Include="Data\GlobalEntity\OfficeDataMock.cs" />
+    <Compile Include="Data\Product\BouquetOfficeDataMock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -76,13 +83,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Features\GlobalEntity.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>GlobalEntity.feature.cs</LastGenOutput>
+    </None>
     <None Include="Features\MerchandiserInfo.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>MerchandiserInfo.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Data\Exceptions\" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

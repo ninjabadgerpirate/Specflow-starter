@@ -40,5 +40,7 @@ namespace MyProject.Specs.Entity
         public string SalesChannelID { get; set; }
     
         public virtual ICollection<BouquetOffice> BouquetOffice { get; set; }
+        public virtual GlobalEntity GlobalEntity { get; set; }
+        public virtual GlobalEntity GlobalEntity1 { get; set; }
     }
 }

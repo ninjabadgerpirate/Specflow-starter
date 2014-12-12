@@ -9,6 +9,11 @@
         <EntityTypeShape EntityType="GeniSysModel.Office" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="GeniSysModel.BouquetOffice" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
         <AssociationConnector Association="GeniSysModel.FK_BouquetOffice_Office" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="GeniSysModel.Exceptions" Width="1.5" PointX="3.625" PointY="9.625" />
+        <EntityTypeShape EntityType="GeniSysModel.GlobalEntity" Width="1.5" PointX="7.875" PointY="0.75" />
+        <AssociationConnector Association="GeniSysModel.FK_MerchCode_GlobalEntityId" />
+        <AssociationConnector Association="GeniSysModel.FK_Office_GlobalEntity" />
+        <AssociationConnector Association="GeniSysModel.FK_Office_GlobalEntity1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

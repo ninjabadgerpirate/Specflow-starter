@@ -4,7 +4,81 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="GeniSysModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="GeniSysModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Exceptions">
+          <Key>
+            <PropertyRef Name="ExceptionID" />
+          </Key>
+          <Property Name="ExceptionID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LUCExceptionType" Type="varchar" MaxLength="50" />
+          <Property Name="PolicyNo" Type="varchar" MaxLength="12" />
+          <Property Name="GovID" Type="varchar" MaxLength="20" />
+          <Property Name="AccountNumber" Type="varchar" MaxLength="50" />
+          <Property Name="FirstNames" Type="varchar" MaxLength="50" />
+          <Property Name="SurName" Type="varchar" MaxLength="50" />
+          <Property Name="Details" Type="varchar" MaxLength="2000" />
+          <Property Name="InsertedOn" Type="datetime" />
+          <Property Name="InsertedBy" Type="uniqueidentifier" />
+          <Property Name="InsertedByName" Type="varchar" MaxLength="100" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="uniqueidentifier" />
+          <Property Name="UpdatedByName" Type="varchar" MaxLength="100" />
+          <Property Name="DeletedOn" Type="datetime" />
+          <Property Name="DeletedBy" Type="uniqueidentifier" />
+          <Property Name="DeletedByName" Type="varchar" MaxLength="100" />
+          <Property Name="GenisysID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GlobalEntity">
+          <Key>
+            <PropertyRef Name="GlobalEntityID" />
+          </Key>
+          <Property Name="GlobalEntityID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FirstNames" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PreferredName" Type="nvarchar" MaxLength="50" />
+          <Property Name="GovID" Type="varchar" MaxLength="20" />
+          <Property Name="Passport" Type="varchar" MaxLength="50" />
+          <Property Name="CountryID" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="LUCPreferredLanguage" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Gender" Type="char" MaxLength="1" />
+          <Property Name="DateOfBirth" Type="datetime" />
+          <Property Name="LUCMaritalStatus" Type="varchar" MaxLength="50" />
+          <Property Name="LUCEntityStatus" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EmployerName" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmployeeNo" Type="nvarchar" MaxLength="20" />
+          <Property Name="LUCIncomeCategory" Type="varchar" MaxLength="50" />
+          <Property Name="SalaryPayDay" Type="int" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" />
+          <Property Name="UserPassword" Type="nvarchar" MaxLength="256" />
+          <Property Name="SecretQuestion" Type="nvarchar" MaxLength="100" />
+          <Property Name="SecretAnswer" Type="nvarchar" MaxLength="100" />
+          <Property Name="InsertedOn" Type="datetime" />
+          <Property Name="InsertedBy" Type="uniqueidentifier" />
+          <Property Name="InsertedByName" Type="varchar" MaxLength="100" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="uniqueidentifier" />
+          <Property Name="UpdatedByName" Type="varchar" MaxLength="100" />
+          <Property Name="LastEntityLogin" Type="datetime" />
+          <Property Name="TrackingNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LegacyMemberID" Type="int" />
+          <Property Name="LegacyUserID" Type="int" />
+          <Property Name="LegacyMerchID" Type="int" />
+          <Property Name="FileRef" Type="uniqueidentifier" />
+          <Property Name="LUCFicaStatus" Type="varchar" MaxLength="50" />
+          <Property Name="IsLockedOut" Type="bit" />
+          <Property Name="LoginAttemptCounter" Type="int" />
+          <Property Name="IsStaff" Type="bit" />
+          <Property Name="CompanyRegNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="VatRegNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="LUCGovIDStatus" Type="varchar" MaxLength="50" />
+          <Property Name="IDVerificationDate" Type="datetime" />
+          <Property Name="LUCIDVerificationSource" Type="varchar" MaxLength="50" />
+          <Property Name="PasswordChangeDate" Type="datetime" />
+          <Property Name="LastUsedPassword" Type="varchar" MaxLength="50" />
+          <Property Name="LUCTitle" Type="varchar" MaxLength="15" />
+          <Property Name="LUCEthnicity" Type="varchar" MaxLength="20" />
+          <Property Name="IsNetworkLogin" Type="bit" />
+        </EntityType>
         <EntityType Name="MerchCode">
           <Key>
             <PropertyRef Name="OfficeCode" />
@@ -102,7 +176,45 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MerchCode_GlobalEntityId">
+          <End Role="GlobalEntity" Type="Self.GlobalEntity" Multiplicity="1" />
+          <End Role="MerchCode" Type="Self.MerchCode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GlobalEntity">
+              <PropertyRef Name="GlobalEntityID" />
+            </Principal>
+            <Dependent Role="MerchCode">
+              <PropertyRef Name="GlobalEntityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Office_GlobalEntity">
+          <End Role="GlobalEntity" Type="Self.GlobalEntity" Multiplicity="1" />
+          <End Role="Office" Type="Self.Office" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GlobalEntity">
+              <PropertyRef Name="GlobalEntityID" />
+            </Principal>
+            <Dependent Role="Office">
+              <PropertyRef Name="GlobalEntityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Office_GlobalEntity1">
+          <End Role="GlobalEntity" Type="Self.GlobalEntity" Multiplicity="0..1" />
+          <End Role="Office" Type="Self.Office" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GlobalEntity">
+              <PropertyRef Name="GlobalEntityID" />
+            </Principal>
+            <Dependent Role="Office">
+              <PropertyRef Name="OwnerEntityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="GeniSysModelStoreContainer">
+          <EntitySet Name="Exceptions" EntityType="Self.Exceptions" Schema="General" store:Type="Tables" />
+          <EntitySet Name="GlobalEntity" EntityType="Self.GlobalEntity" Schema="GlobalEntity" store:Type="Tables" />
           <EntitySet Name="MerchCode" EntityType="Self.MerchCode" Schema="GlobalEntity" store:Type="Tables" />
           <EntitySet Name="Office" EntityType="Self.Office" Schema="GlobalEntity" store:Type="Tables" />
           <EntitySet Name="BouquetOffice" EntityType="Self.BouquetOffice" Schema="Product" store:Type="Tables" />
@@ -110,9 +222,20 @@
             <End Role="Office" EntitySet="Office" />
             <End Role="BouquetOffice" EntitySet="BouquetOffice" />
           </AssociationSet>
+          <AssociationSet Name="FK_MerchCode_GlobalEntityId" Association="Self.FK_MerchCode_GlobalEntityId">
+            <End Role="GlobalEntity" EntitySet="GlobalEntity" />
+            <End Role="MerchCode" EntitySet="MerchCode" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Office_GlobalEntity" Association="Self.FK_Office_GlobalEntity">
+            <End Role="GlobalEntity" EntitySet="GlobalEntity" />
+            <End Role="Office" EntitySet="Office" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Office_GlobalEntity1" Association="Self.FK_Office_GlobalEntity1">
+            <End Role="GlobalEntity" EntitySet="GlobalEntity" />
+            <End Role="Office" EntitySet="Office" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="GeniSysModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -151,6 +274,7 @@
           <Property Name="LUCHighestQualification" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="EventFundBalance" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="RallyFundBalance" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="GlobalEntity" Relationship="GeniSysModel.FK_MerchCode_GlobalEntityId" FromRole="MerchCode" ToRole="GlobalEntity" />
         </EntityType>
         <EntityType Name="Office">
           <Key>
@@ -176,6 +300,8 @@
           <Property Name="ParentSalesChannelID" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Name="SalesChannelID" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="BouquetOffice" Relationship="Self.FK_BouquetOffice_Office" FromRole="Office" ToRole="BouquetOffice" />
+          <NavigationProperty Name="GlobalEntity" Relationship="GeniSysModel.FK_Office_GlobalEntity" FromRole="Office" ToRole="GlobalEntity" />
+          <NavigationProperty Name="GlobalEntity1" Relationship="GeniSysModel.FK_Office_GlobalEntity1" FromRole="Office" ToRole="GlobalEntity" />
         </EntityType>
         <EntityType Name="BouquetOffice">
           <Key>
@@ -223,7 +349,134 @@
             <End Role="Office" EntitySet="Office" />
             <End Role="BouquetOffice" EntitySet="BouquetOffice" />
           </AssociationSet>
+          <EntitySet Name="Exceptions" EntityType="GeniSysModel.Exceptions" />
+          <EntitySet Name="GlobalEntity" EntityType="GeniSysModel.GlobalEntity" />
+          <AssociationSet Name="FK_MerchCode_GlobalEntityId" Association="GeniSysModel.FK_MerchCode_GlobalEntityId">
+            <End Role="GlobalEntity" EntitySet="GlobalEntity" />
+            <End Role="MerchCode" EntitySet="MerchCode" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Office_GlobalEntity" Association="GeniSysModel.FK_Office_GlobalEntity">
+            <End Role="GlobalEntity" EntitySet="GlobalEntity" />
+            <End Role="Office" EntitySet="Office" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Office_GlobalEntity1" Association="GeniSysModel.FK_Office_GlobalEntity1">
+            <End Role="GlobalEntity" EntitySet="GlobalEntity" />
+            <End Role="Office" EntitySet="Office" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Exceptions">
+          <Key>
+            <PropertyRef Name="ExceptionID" />
+          </Key>
+          <Property Name="ExceptionID" Type="Guid" Nullable="false" />
+          <Property Name="LUCExceptionType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PolicyNo" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="GovID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="AccountNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstNames" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SurName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Details" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="InsertedOn" Type="DateTime" Precision="3" />
+          <Property Name="InsertedBy" Type="Guid" />
+          <Property Name="InsertedByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Guid" />
+          <Property Name="UpdatedByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DeletedOn" Type="DateTime" Precision="3" />
+          <Property Name="DeletedBy" Type="Guid" />
+          <Property Name="DeletedByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="GenisysID" Type="Guid" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GlobalEntity">
+          <Key>
+            <PropertyRef Name="GlobalEntityID" />
+          </Key>
+          <Property Name="GlobalEntityID" Type="Guid" Nullable="false" />
+          <Property Name="FirstNames" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PreferredName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GovID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Passport" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CountryID" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="LUCPreferredLanguage" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
+          <Property Name="LUCMaritalStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LUCEntityStatus" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmployerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LUCIncomeCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SalaryPayDay" Type="Int32" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="UserPassword" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="SecretQuestion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SecretAnswer" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="InsertedOn" Type="DateTime" Precision="3" />
+          <Property Name="InsertedBy" Type="Guid" />
+          <Property Name="InsertedByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Guid" />
+          <Property Name="UpdatedByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LastEntityLogin" Type="DateTime" Precision="3" />
+          <Property Name="TrackingNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LegacyMemberID" Type="Int32" />
+          <Property Name="LegacyUserID" Type="Int32" />
+          <Property Name="LegacyMerchID" Type="Int32" />
+          <Property Name="FileRef" Type="Guid" />
+          <Property Name="LUCFicaStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsLockedOut" Type="Boolean" />
+          <Property Name="LoginAttemptCounter" Type="Int32" />
+          <Property Name="IsStaff" Type="Boolean" />
+          <Property Name="CompanyRegNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VatRegNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LUCGovIDStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IDVerificationDate" Type="DateTime" Precision="3" />
+          <Property Name="LUCIDVerificationSource" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PasswordChangeDate" Type="DateTime" Precision="3" />
+          <Property Name="LastUsedPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LUCTitle" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="LUCEthnicity" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="IsNetworkLogin" Type="Boolean" />
+          <NavigationProperty Name="MerchCode" Relationship="GeniSysModel.FK_MerchCode_GlobalEntityId" FromRole="GlobalEntity" ToRole="MerchCode" />
+          <NavigationProperty Name="Office" Relationship="GeniSysModel.FK_Office_GlobalEntity" FromRole="GlobalEntity" ToRole="Office" />
+          <NavigationProperty Name="Office1" Relationship="GeniSysModel.FK_Office_GlobalEntity1" FromRole="GlobalEntity" ToRole="Office" />
+        </EntityType>
+        <Association Name="FK_MerchCode_GlobalEntityId">
+          <End Type="GeniSysModel.GlobalEntity" Role="GlobalEntity" Multiplicity="1" />
+          <End Type="GeniSysModel.MerchCode" Role="MerchCode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GlobalEntity">
+              <PropertyRef Name="GlobalEntityID" />
+            </Principal>
+            <Dependent Role="MerchCode">
+              <PropertyRef Name="GlobalEntityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Office_GlobalEntity">
+          <End Type="GeniSysModel.GlobalEntity" Role="GlobalEntity" Multiplicity="1" />
+          <End Type="GeniSysModel.Office" Role="Office" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GlobalEntity">
+              <PropertyRef Name="GlobalEntityID" />
+            </Principal>
+            <Dependent Role="Office">
+              <PropertyRef Name="GlobalEntityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Office_GlobalEntity1">
+          <End Type="GeniSysModel.GlobalEntity" Role="GlobalEntity" Multiplicity="0..1" />
+          <End Type="GeniSysModel.Office" Role="Office" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GlobalEntity">
+              <PropertyRef Name="GlobalEntityID" />
+            </Principal>
+            <Dependent Role="Office">
+              <PropertyRef Name="OwnerEntityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -308,6 +561,82 @@
                 <ScalarProperty Name="GenisysID" ColumnName="GenisysID" />
                 <ScalarProperty Name="LUCPayoutStructure" ColumnName="LUCPayoutStructure" />
                 <ScalarProperty Name="IsCashEnabled" ColumnName="IsCashEnabled" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Exceptions">
+            <EntityTypeMapping TypeName="GeniSysModel.Exceptions">
+              <MappingFragment StoreEntitySet="Exceptions">
+                <ScalarProperty Name="GenisysID" ColumnName="GenisysID" />
+                <ScalarProperty Name="DeletedByName" ColumnName="DeletedByName" />
+                <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+                <ScalarProperty Name="UpdatedByName" ColumnName="UpdatedByName" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="InsertedByName" ColumnName="InsertedByName" />
+                <ScalarProperty Name="InsertedBy" ColumnName="InsertedBy" />
+                <ScalarProperty Name="InsertedOn" ColumnName="InsertedOn" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
+                <ScalarProperty Name="SurName" ColumnName="SurName" />
+                <ScalarProperty Name="FirstNames" ColumnName="FirstNames" />
+                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+                <ScalarProperty Name="GovID" ColumnName="GovID" />
+                <ScalarProperty Name="PolicyNo" ColumnName="PolicyNo" />
+                <ScalarProperty Name="LUCExceptionType" ColumnName="LUCExceptionType" />
+                <ScalarProperty Name="ExceptionID" ColumnName="ExceptionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GlobalEntity">
+            <EntityTypeMapping TypeName="GeniSysModel.GlobalEntity">
+              <MappingFragment StoreEntitySet="GlobalEntity">
+                <ScalarProperty Name="IsNetworkLogin" ColumnName="IsNetworkLogin" />
+                <ScalarProperty Name="LUCEthnicity" ColumnName="LUCEthnicity" />
+                <ScalarProperty Name="LUCTitle" ColumnName="LUCTitle" />
+                <ScalarProperty Name="LastUsedPassword" ColumnName="LastUsedPassword" />
+                <ScalarProperty Name="PasswordChangeDate" ColumnName="PasswordChangeDate" />
+                <ScalarProperty Name="LUCIDVerificationSource" ColumnName="LUCIDVerificationSource" />
+                <ScalarProperty Name="IDVerificationDate" ColumnName="IDVerificationDate" />
+                <ScalarProperty Name="LUCGovIDStatus" ColumnName="LUCGovIDStatus" />
+                <ScalarProperty Name="VatRegNo" ColumnName="VatRegNo" />
+                <ScalarProperty Name="CompanyRegNo" ColumnName="CompanyRegNo" />
+                <ScalarProperty Name="IsStaff" ColumnName="IsStaff" />
+                <ScalarProperty Name="LoginAttemptCounter" ColumnName="LoginAttemptCounter" />
+                <ScalarProperty Name="IsLockedOut" ColumnName="IsLockedOut" />
+                <ScalarProperty Name="LUCFicaStatus" ColumnName="LUCFicaStatus" />
+                <ScalarProperty Name="FileRef" ColumnName="FileRef" />
+                <ScalarProperty Name="LegacyMerchID" ColumnName="LegacyMerchID" />
+                <ScalarProperty Name="LegacyUserID" ColumnName="LegacyUserID" />
+                <ScalarProperty Name="LegacyMemberID" ColumnName="LegacyMemberID" />
+                <ScalarProperty Name="TrackingNumber" ColumnName="TrackingNumber" />
+                <ScalarProperty Name="LastEntityLogin" ColumnName="LastEntityLogin" />
+                <ScalarProperty Name="UpdatedByName" ColumnName="UpdatedByName" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="InsertedByName" ColumnName="InsertedByName" />
+                <ScalarProperty Name="InsertedBy" ColumnName="InsertedBy" />
+                <ScalarProperty Name="InsertedOn" ColumnName="InsertedOn" />
+                <ScalarProperty Name="SecretAnswer" ColumnName="SecretAnswer" />
+                <ScalarProperty Name="SecretQuestion" ColumnName="SecretQuestion" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="SalaryPayDay" ColumnName="SalaryPayDay" />
+                <ScalarProperty Name="LUCIncomeCategory" ColumnName="LUCIncomeCategory" />
+                <ScalarProperty Name="EmployeeNo" ColumnName="EmployeeNo" />
+                <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
+                <ScalarProperty Name="LUCEntityStatus" ColumnName="LUCEntityStatus" />
+                <ScalarProperty Name="LUCMaritalStatus" ColumnName="LUCMaritalStatus" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="LUCPreferredLanguage" ColumnName="LUCPreferredLanguage" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="Passport" ColumnName="Passport" />
+                <ScalarProperty Name="GovID" ColumnName="GovID" />
+                <ScalarProperty Name="PreferredName" ColumnName="PreferredName" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="FirstNames" ColumnName="FirstNames" />
+                <ScalarProperty Name="GlobalEntityID" ColumnName="GlobalEntityID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

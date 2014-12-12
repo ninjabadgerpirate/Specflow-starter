@@ -2,7 +2,7 @@
 using MyProject.Specs.Data.GlobalEntity;
 using MyProject.Specs.Entity;
 
-namespace MyProjects.Specs.UnitTests.Models.GlobalEntity.Mock
+namespace MyProjects.Specs.UnitTests.Data.GlobalEntity
 {
     public class OfficeDataMock : IOfficeData
     {

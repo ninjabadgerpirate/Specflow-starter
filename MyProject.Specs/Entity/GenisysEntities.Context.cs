@@ -28,5 +28,7 @@ namespace MyProject.Specs.Entity
         public virtual DbSet<MerchCode> MerchCode { get; set; }
         public virtual DbSet<Office> Office { get; set; }
         public virtual DbSet<BouquetOffice> BouquetOffice { get; set; }
+        public virtual DbSet<Exceptions> Exceptions { get; set; }
+        public virtual DbSet<GlobalEntity> GlobalEntity { get; set; }
     }
 }

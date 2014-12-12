@@ -2,8 +2,8 @@
 using MyProject.Specs.Enums;
 using MyProject.Specs.Models.GlobalEntity;
 using MyProject.Specs.Models.Product;
-using MyProjects.Specs.UnitTests.Models.GlobalEntity.Mock;
-using MyProjects.Specs.UnitTests.Models.Product.Mock;
+using MyProjects.Specs.UnitTests.Data.GlobalEntity;
+using MyProjects.Specs.UnitTests.Data.Product;
 using TechTalk.SpecFlow;
 
 namespace MyProjects.Specs.UnitTests

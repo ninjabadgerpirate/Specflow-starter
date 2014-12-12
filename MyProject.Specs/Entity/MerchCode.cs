@@ -43,5 +43,7 @@ namespace MyProject.Specs.Entity
         public string LUCHighestQualification { get; set; }
         public Nullable<decimal> EventFundBalance { get; set; }
         public Nullable<decimal> RallyFundBalance { get; set; }
+    
+        public virtual GlobalEntity GlobalEntity { get; set; }
     }
 }
