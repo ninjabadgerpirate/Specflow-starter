@@ -70,7 +70,7 @@ namespace MyProjects.Specs.UnitTests.Features
             testRunner.CollectScenarioErrors();
         }
         
-        public virtual void LoadACustomersAccountUsingGovID(
+        public virtual void LoadAnAccountUsingGovID(
                     string caseName, 
                     string govID, 
                     string isValid, 
@@ -90,24 +90,22 @@ namespace MyProjects.Specs.UnitTests.Features
                     string lUCTitle, 
                     string[] exampleTags)
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Load a customers account using GovID", exampleTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Load an account using GovID", exampleTags);
 #line 6
 this.ScenarioSetup(scenarioInfo);
 #line 7
  testRunner.Given("that the user wants to load a customers account", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 8
- testRunner.When(string.Format("the user enters this {0}", govID), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("the user enters \'{0}\'", govID), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 9
- testRunner.Then(string.Format("the GovID is {0}", status), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 10
- testRunner.And(string.Format("the data returned is \'{0}\' \'{1}\' \'{2}\' \'{3}\' \'{4}\' \'{5}\' \'{6}\' \'{7}\' \'{8}\' {9} \'{" +
-                        "10}\' \'{11}\' \'{12}\'", firstNames, surname, preferredName, passport, countryID, lUCPreferredLanguage, lUCMaritalStatus, employerName, employeeNo, salaryPayDay, lUCIncomeCategory, isStaff, lUCTitle), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Then(string.Format("the result should be {0} \'{1}\' \'{2}\' \'{3}\' \'{4}\' \'{5}\' \'{6}\' \'{7}\' \'{8}\' \'{9}\' \'{" +
+                        "10}\' \'{11}\' \'{12}\' \'{13}\' \'{14}\'", isValid, status, firstNames, surname, preferredName, passport, countryID, lUCPreferredLanguage, lUCMaritalStatus, employerName, employeeNo, lUCIncomeCategory, isStaff, lUCTitle, salaryPayDay), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Load a customers account using GovID")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Load an account using GovID")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "GlobalEntity")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "NoGovID")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:CaseName", "NoGovID")]
@@ -127,13 +125,13 @@ this.ScenarioSetup(scenarioInfo);
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:LUCIncomeCategory", "")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:IsStaff", "")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:LUCTitle", "")]
-        public virtual void LoadACustomersAccountUsingGovID_NoGovID()
+        public virtual void LoadAnAccountUsingGovID_NoGovID()
         {
-            this.LoadACustomersAccountUsingGovID("NoGovID", "", "false", "Invalid", "", "", "", "", "", "", "", "", "", "", "", "", "", ((string[])(null)));
+            this.LoadAnAccountUsingGovID("NoGovID", "", "false", "Invalid", "", "", "", "", "", "", "", "", "", "", "", "", "", ((string[])(null)));
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Load a customers account using GovID")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Load an account using GovID")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "GlobalEntity")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "GovIDIsInvalid")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:CaseName", "GovIDIsInvalid")]
@@ -153,13 +151,13 @@ this.ScenarioSetup(scenarioInfo);
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:LUCIncomeCategory", "")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:IsStaff", "")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:LUCTitle", "")]
-        public virtual void LoadACustomersAccountUsingGovID_GovIDIsInvalid()
+        public virtual void LoadAnAccountUsingGovID_GovIDIsInvalid()
         {
-            this.LoadACustomersAccountUsingGovID("GovIDIsInvalid", "80", "false", "Invalid", "", "", "", "", "", "", "", "", "", "", "", "", "", ((string[])(null)));
+            this.LoadAnAccountUsingGovID("GovIDIsInvalid", "80", "false", "Invalid", "", "", "", "", "", "", "", "", "", "", "", "", "", ((string[])(null)));
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Load a customers account using GovID")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Load an account using GovID")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "GlobalEntity")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "GovIDIsBlacklisted")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:CaseName", "GovIDIsBlacklisted")]
@@ -179,13 +177,13 @@ this.ScenarioSetup(scenarioInfo);
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:LUCIncomeCategory", "5 001 - 10 000")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:IsStaff", "0")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:LUCTitle", "Mrs.")]
-        public virtual void LoadACustomersAccountUsingGovID_GovIDIsBlacklisted()
+        public virtual void LoadAnAccountUsingGovID_GovIDIsBlacklisted()
         {
-            this.LoadACustomersAccountUsingGovID("GovIDIsBlacklisted", "8611230945087", "true", "Blacklisted", "PHUMZA", "GQOTSA", "", "", "ZA", "en", "Married", "DEPARTMENT OF ARLTICULTURE ANDFOREST FISHERIES", "", "31", "5 001 - 10 000", "0", "Mrs.", ((string[])(null)));
+            this.LoadAnAccountUsingGovID("GovIDIsBlacklisted", "8611230945087", "true", "Blacklisted", "PHUMZA", "GQOTSA", "", "", "ZA", "en", "Married", "DEPARTMENT OF ARLTICULTURE ANDFOREST FISHERIES", "", "31", "5 001 - 10 000", "0", "Mrs.", ((string[])(null)));
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Load a customers account using GovID")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Load an account using GovID")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "GlobalEntity")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "GovIDIsNew")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:CaseName", "GovIDIsNew")]
@@ -205,13 +203,13 @@ this.ScenarioSetup(scenarioInfo);
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:LUCIncomeCategory", "")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:IsStaff", "")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:LUCTitle", "")]
-        public virtual void LoadACustomersAccountUsingGovID_GovIDIsNew()
+        public virtual void LoadAnAccountUsingGovID_GovIDIsNew()
         {
-            this.LoadACustomersAccountUsingGovID("GovIDIsNew", "8009135069089", "true", "New", "", "", "", "", "", "", "", "", "", "", "", "", "", ((string[])(null)));
+            this.LoadAnAccountUsingGovID("GovIDIsNew", "8009135069089", "true", "New", "", "", "", "", "", "", "", "", "", "", "", "", "", ((string[])(null)));
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Load a customers account using GovID")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Load an account using GovID")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "GlobalEntity")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "GovIDIsExisting")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:CaseName", "GovIDIsExisting")]
@@ -231,9 +229,9 @@ this.ScenarioSetup(scenarioInfo);
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:LUCIncomeCategory", "Unknown")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:IsStaff", "0")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:LUCTitle", "")]
-        public virtual void LoadACustomersAccountUsingGovID_GovIDIsExisting()
+        public virtual void LoadAnAccountUsingGovID_GovIDIsExisting()
         {
-            this.LoadACustomersAccountUsingGovID("GovIDIsExisting", "8801315607088", "true", "Existing", "MABUTHESIZWE", "NXUMALO", "", "", "ZA", "en", "Not Married", "STUDENT", "", "15", "Unknown", "0", "", ((string[])(null)));
+            this.LoadAnAccountUsingGovID("GovIDIsExisting", "8801315607088", "true", "Existing", "MABUTHESIZWE", "NXUMALO", "", "", "ZA", "en", "Not Married", "STUDENT", "", "15", "Unknown", "0", "", ((string[])(null)));
         }
     }
 }

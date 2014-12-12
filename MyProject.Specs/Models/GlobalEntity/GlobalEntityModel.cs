@@ -29,7 +29,7 @@ namespace MyProject.Specs.Models.GlobalEntity
 
             try
             {
-                globalEntityViewModel = ValidateGovID(govID);
+                globalEntityViewModel = GovIDIsValid(govID);
                 if (globalEntityViewModel.GovIDValidationResponse == GovIDValidationResponseEnum.Valid)
                 {
                     globalEntityViewModel = FindByGovID(govID);
@@ -93,6 +93,8 @@ namespace MyProject.Specs.Models.GlobalEntity
 
             try
             {
+                globalEntityViewModel.IsValid = true;
+                globalEntityViewModel.GovIDValidationResponse = GovIDValidationResponseEnum.Valid;
                 globalEntityViewModel.GlobalEntity = _globalEntityData.FindByGovID(govID);
                 globalEntityViewModel.ResponseStatus = ResponseStatus.Success;
             }

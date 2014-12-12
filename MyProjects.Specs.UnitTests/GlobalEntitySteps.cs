@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MyProject.Specs.Enums;
 using MyProject.Specs.Models.GlobalEntity;
 using MyProject.Specs.ViewModels;
@@ -36,14 +35,13 @@ namespace MyProjects.Specs.UnitTests
 
         private GlobalEntityTestDto _testResult = new GlobalEntityTestDto();
 
-
         [Given(@"that the user wants to load a customers account")]
         public void GivenThatTheUserWantsToLoadACustomersAccount()
         {
             Assert.IsTrue(true);
         }
 
-        [When(@"the user enters this (.*)")]
+        [When(@"the user enters '(.*)'")]
         public void WhenTheUserEntersThis(string GovID)
         {
             var globalEntityDataMock = new GlobalEntityDataMock();
@@ -69,7 +67,7 @@ namespace MyProjects.Specs.UnitTests
 
                 switch (globalEntityViewModel.GovIDValidationResponse)
                 {
-                        
+
                 }
 
                 if (globalEntityViewModel.GlobalEntity.IsStaff != null)
@@ -77,18 +75,19 @@ namespace MyProjects.Specs.UnitTests
 
                 if (globalEntityViewModel.GlobalEntity.SalaryPayDay != null)
                     _testResult.SalaryPayDay = globalEntityViewModel.GlobalEntity.SalaryPayDay.Value;
-                
+
             }
         }
 
-        [Then(@"the account (.*)")]
-        public void ThenTheAccount(string p0)
+        [Then(@"the result should be false")]
+        public void ThenTheResultShouldBeFalse()
         {
-            //ScenarioContext.Current.Pending();
+            ScenarioContext.Current.Pending();
         }
 
-        [Then(@"the account details are (.*) (.*) (.*) (.*) (.*) (.*) (.*) (.*) (.*) (.*) (.*) (.*) (.*) (.*)")]
-        public void ThenTheAccountDetailsAre(string Status, string FirstNames, string Surname, string PreferredName, string Passport, string CountryID, string LUCPreferredLanguage, string LUCMaritalStatus, string EmployerName, string SalaryPayDay, string LUCIncomeCategory, string IsStaff, string LUCTitle)
+
+        [Then(@"the result should be (.*) '(.*)' '(.*)' '(.*)' '(.*)' '(.*)' '(.*)' '(.*)' '(.*)' '(.*)' '(.*)' '(.*)' '(.*)' '(.*)' '(.*)'")]
+        public void ThenTheResultShouldBe(bool IsValid, string Status, string FirstNames, string Surname, string PreferredName, string Passport, string CountryID, string LUCPreferredLanguage, string LUCMaritalStatus, string EmployerName, string EmployerNo, string LUCIncomeCategory, string IsStaff, string LUCTitle, string SalaryPayDay)
         {
             Assert.AreEqual(_testResult.Status, Status);
             Assert.AreEqual(_testResult.FirstNames, FirstNames);
@@ -103,8 +102,8 @@ namespace MyProjects.Specs.UnitTests
             Assert.AreEqual(_testResult.LUCIncomeCategory, LUCIncomeCategory);
             Assert.AreEqual(_testResult.IsStaff, IsStaff);
             Assert.AreEqual(_testResult.LUCTitle, LUCTitle);
-
-            Assert.AreEqual(_testResult.Status, Status);
+            Assert.AreEqual(_testResult.IsValid, IsValid);
         }
+
     }
 }

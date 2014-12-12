@@ -3,11 +3,10 @@
 	use a customer's South African Government ID to load their existing account
 	or we need to create a new account using their South African Government ID.
 
-Scenario Outline: Load a customers account using GovID
+Scenario Outline: Load an account using GovID
 	Given that the user wants to load a customers account	
-	When the user enters this <GovID>
-	Then the GovID is <Status>
-	And the data returned is '<FirstNames>' '<Surname>' '<PreferredName>' '<Passport>' '<CountryID>' '<LUCPreferredLanguage>' '<LUCMaritalStatus>' '<EmployerName>' '<EmployeeNo>' <SalaryPayDay> '<LUCIncomeCategory>' '<IsStaff>' '<LUCTitle>'
+	When the user enters '<GovID>'
+	Then the result should be <IsValid> '<Status>' '<FirstNames>' '<Surname>' '<PreferredName>' '<Passport>' '<CountryID>' '<LUCPreferredLanguage>' '<LUCMaritalStatus>' '<EmployerName>' '<EmployeeNo>' '<LUCIncomeCategory>' '<IsStaff>' '<LUCTitle>' '<SalaryPayDay>'
 
 	Examples: 
 	| CaseName           | GovID         | IsValid     | Status			| FirstNames	| Surname	| PreferredName | Passport | CountryID | LUCPreferredLanguage | LUCMaritalStatus | EmployerName										| EmployeeNo | SalaryPayDay | LUCIncomeCategory | IsStaff | LUCTitle |
