@@ -6,12 +6,12 @@
 Scenario Outline: Load an account using GovID
 	Given that the user wants to load a customers account	
 	When the user enters '<GovID>'
-	Then the result should be <IsValid> '<Status>' '<FirstNames>' '<Surname>' '<PreferredName>' '<Passport>' '<CountryID>' '<LUCPreferredLanguage>' '<LUCMaritalStatus>' '<EmployerName>' '<EmployeeNo>' '<LUCIncomeCategory>' '<IsStaff>' '<LUCTitle>' '<SalaryPayDay>'
+	Then the result should be '<GovIDValidationResponse>' '<GovIDExceptionStatus>' '<FirstNames>' '<Surname>' '<PreferredName>' '<Passport>' '<CountryID>' '<LUCPreferredLanguage>' '<LUCMaritalStatus>' '<EmployerName>' '<EmployeeNo>' '<LUCIncomeCategory>' <IsStaff> '<LUCTitle>' '<SalaryPayDay>'
 
 	Examples: 
-	| CaseName           | GovID         | IsValid     | Status			| FirstNames	| Surname	| PreferredName | Passport | CountryID | LUCPreferredLanguage | LUCMaritalStatus | EmployerName										| EmployeeNo | SalaryPayDay | LUCIncomeCategory | IsStaff | LUCTitle |
-	| NoGovID            |               | false       | Invalid		|				|			|               |          |           |                      |                  |													|            |              |                   |         |          |
-	| GovIDIsInvalid     | 80            | false       | Invalid		|				|			|               |          |           |                      |                  |													|            |              |                   |         |          |
-	| GovIDIsBlacklisted | 8611230945087 | true		   | Blacklisted    | PHUMZA		| GQOTSA	|               |          | ZA        | en                   | Married          | DEPARTMENT OF ARLTICULTURE ANDFOREST FISHERIES	|            | 31           | 5 001 - 10 000    | 0       | Mrs.     |
-	| GovIDIsNew         | 8009135069089 | true        | New			|				|			|               |          |           |                      |                  |													|            |              |                   |         |			 |
-	| GovIDIsExisting    | 8801315607088 | true		   | Existing		|MABUTHESIZWE	| NXUMALO   |               |          | ZA        | en                   | Not Married      | STUDENT											|            |  15          | Unknown           |  0      |          |
+	| CaseName           | GovID         | GovIDValidationResponse     | GovIDExceptionStatus| FirstNames	| Surname	| PreferredName | Passport | CountryID | LUCPreferredLanguage | LUCMaritalStatus | EmployerName										| EmployeeNo | SalaryPayDay | LUCIncomeCategory | IsStaff | LUCTitle |
+	| NoGovID            |               | NoGovID					   | NoException		 |				|			|               |          |           |                      |                  |													|            |              |                   | false   |          |
+	| GovIDIsInvalid     | 80            | Invalid					   | NoException		 |				|			|               |          |           |                      |                  |													|            |              |                   | false   |          |
+	| GovIDIsBlacklisted | 8611230945087 | Valid					   | Blacklisted		 | PHUMZA		| GQOTSA	|               |          | ZA        | en                   | Married          | DEPARTMENT OF ARLTICULTURE ANDFOREST FISHERIES	|            | 31           | 5 001 - 10 000    | false   | Mrs.     |
+	| GovIDIsNew         | 8009135069089 | Valid					   | NoException		 |				|			|               |          |           |                      |                  |													|            |              |                   | false   |			 |
+	| GovIDIsExisting    | 8801315607088 | Valid					   | NoException		 |MABUTHESIZWE	| NXUMALO   |               |          | ZA        | en                   | Not Married      | STUDENT											|            |  15          | Unknown           | false   | Mrs.     |

@@ -1,9 +1,10 @@
-﻿using MyProject.Specs.ViewModels;
+﻿using System.Collections.Generic;
+using MyProject.Specs.Entity;
 
 namespace MyProject.Specs.Data.GlobalEntity
 {
     public interface IExceptionsData
     {
-        ExceptionsViewModel IsException(string govID);
+        IList<Exceptions> ReturnMatchingExceptions(string govID);
     }
 }

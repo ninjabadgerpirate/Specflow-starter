@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using MyProject.Specs.Entity;
 using MyProject.Specs.Enums;
@@ -16,44 +17,20 @@ namespace MyProject.Specs.Data.GlobalEntity
             _db = new GeniSysEntities();    
         }
 
-        public ExceptionsViewModel IsException(string govID)
+        public IList<Exceptions> ReturnMatchingExceptions(string govID)
         {
-            var exceptionsViewModel = new ExceptionsViewModel();
-            exceptionsViewModel.GovIDExceptionStatus = GovIDExceptionStatusEnum.NoException;
+            var result = new List<Exceptions>();
 
             try
             {
-                exceptionsViewModel.Exceptions = _db.Exceptions.Where(x => x.GovID == govID).ToList();
-                for (int i = 0; i < exceptionsViewModel.Exceptions.Count; i++)
-                {
-                    switch (exceptionsViewModel.Exceptions[i].LUCExceptionType)
-                    {
-                        case "BlackList":
-                            exceptionsViewModel.GovIDExceptionStatus = GovIDExceptionStatusEnum.Blacklisted;
-                            break;
-                        case "MerchBlackList":
-                            exceptionsViewModel.GovIDExceptionStatus = GovIDExceptionStatusEnum.MerchBlacklist;
-                            break;
-                        case "Client Opt-out":
-                            exceptionsViewModel.GovIDExceptionStatus = GovIDExceptionStatusEnum.ClientOptOut;
-                            break;
-                        case "Pre-Cancel":
-                            exceptionsViewModel.GovIDExceptionStatus = GovIDExceptionStatusEnum.PreCancel;
-                            break;
-                    }
-                }
-
-                exceptionsViewModel.ResponseStatus = ResponseStatus.Success;
+                result = _db.Exceptions.Where(x => x.GovID == govID).ToList();
             }
             catch (Exception ex)
             {
-                exceptionsViewModel.ResponseMessage = ex.ToString();
-                exceptionsViewModel.ResponseStatus = ResponseStatus.Failed;
+                //ToDO Add Logging.
             }
 
-            exceptionsViewModel.ResponseDateTime = DateTime.Now;
-
-            return exceptionsViewModel;
+            return result;
         }
     }
 }

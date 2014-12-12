@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using MyProject.Specs.Entity;
 
@@ -21,13 +22,13 @@ namespace MyProject.Specs.Data.GlobalEntity
         /// </summary>
         /// <param name="govID">The GovID you are wanting to retrieve records for.</param>
         /// <returns>An office view model containing the validity response.</returns>
-        public Entity.GlobalEntity FindByGovID(string govID)
+        public IList<MyProject.Specs.Entity.GlobalEntity> FindByGovID(string govID)
         {
-            var result = new Entity.GlobalEntity();;
+            var result = new List<MyProject.Specs.Entity.GlobalEntity>();
 
             try
             {
-                result = db.GlobalEntity.SingleOrDefault(x => x.GovID == govID);
+                result = db.GlobalEntity.Where(x => x.GovID == govID).ToList();
             }
             catch (Exception ex)
             {

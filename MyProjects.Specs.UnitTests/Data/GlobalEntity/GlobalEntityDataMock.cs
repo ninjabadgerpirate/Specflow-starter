@@ -1,34 +1,63 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using MyProject.Specs.Data.GlobalEntity;
 
 namespace MyProjects.Specs.UnitTests.Data.GlobalEntity{
 
     public class GlobalEntityDataMock : IGlobalEntityData
     {
-        public MyProject.Specs.Entity.GlobalEntity dataToUse { get; set; }
+        public IList<MyProject.Specs.Entity.GlobalEntity> dataToUse { get; set; }
 
         public GlobalEntityDataMock()
         {
-            dataToUse = new MyProject.Specs.Entity.GlobalEntity
+            dataToUse = new List<MyProject.Specs.Entity.GlobalEntity>();
+            dataToUse.Add(new MyProject.Specs.Entity.GlobalEntity
             {
                 CompanyRegNo = string.Empty,
                 CountryID = "ZA",
-                DateOfBirth = new DateTime(1980,9,13),
-                GovID = "8009135069089",
-                FirstNames = "GianPiero",
-                Surname = "Bresolin",
-                EmployeeNo = "812",
-                EmployerName = "The Unlimited",
+                DateOfBirth = new DateTime(1986,11,23),
+                GovID = "8611230945087",
+                FirstNames = "PHUMZA",
+                IsStaff = false,
+                Surname = "GQOTSA",
+                EmployeeNo = "",
+                EmployerName = "DEPARTMENT OF ARLTICULTURE ANDFOREST FISHERIES",
                 Gender = "M",
-                LUCTitle = "Mr",
+                LUCIncomeCategory = "5 001 - 10 000",
+                LUCTitle = "Mrs.",
                 LUCPreferredLanguage = "en",
-                LUCMaritalStatus = "Single"
-            };
+                LUCMaritalStatus = "Married",
+                Passport = string.Empty,
+                PreferredName = string.Empty,
+                SalaryPayDay = 31
+            });
+            dataToUse.Add(new MyProject.Specs.Entity.GlobalEntity
+            {
+                CompanyRegNo = string.Empty,
+                CountryID = "ZA",
+                DateOfBirth = new DateTime(1988, 1, 31),
+                GovID = "8801315607088",
+                FirstNames = "MABUTHESIZWE",
+                IsStaff = false,
+                Surname = "NXUMALO",
+                EmployeeNo = "",
+                EmployerName = "STUDENT",
+                Gender = "M",
+                LUCIncomeCategory = "Unknown",
+                LUCTitle = "Mrs.",
+                LUCPreferredLanguage = "en",
+                LUCMaritalStatus = "Not Married",
+                Passport = string.Empty,
+                PreferredName = string.Empty,
+                SalaryPayDay = 15
+            });
         }
 
-        public MyProject.Specs.Entity.GlobalEntity FindByGovID(string govID)
+        public IList<MyProject.Specs.Entity.GlobalEntity> FindByGovID(string govID)
         {
-            return dataToUse;
+            return dataToUse.Where(x => x.GovID == govID).ToList();
         }
     }
 }

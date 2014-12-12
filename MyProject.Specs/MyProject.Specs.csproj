@@ -94,7 +94,9 @@
     <Compile Include="Enums\OfficeValidationResponseEnum.cs" />
     <Compile Include="IMerchandiserInfo.cs" />
     <Compile Include="MerchandiserInfo.cs" />
+    <Compile Include="Models\GlobalEntity\ExceptionsModel.cs" />
     <Compile Include="Models\GlobalEntity\GlobalEntityModel.cs" />
+    <Compile Include="Models\GlobalEntity\IExceptionsModel.cs" />
     <Compile Include="Models\GlobalEntity\IGlobalEntityModel.cs" />
     <Compile Include="Models\GlobalEntity\IOfficeModel.cs" />
     <Compile Include="Models\GlobalEntity\MerchModel.cs" />

@@ -73,8 +73,8 @@ namespace MyProjects.Specs.UnitTests.Features
         public virtual void LoadAnAccountUsingGovID(
                     string caseName, 
                     string govID, 
-                    string isValid, 
-                    string status, 
+                    string govIDValidationResponse, 
+                    string govIDExceptionStatus, 
                     string firstNames, 
                     string surname, 
                     string preferredName, 
@@ -98,8 +98,8 @@ this.ScenarioSetup(scenarioInfo);
 #line 8
  testRunner.When(string.Format("the user enters \'{0}\'", govID), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 9
- testRunner.Then(string.Format("the result should be {0} \'{1}\' \'{2}\' \'{3}\' \'{4}\' \'{5}\' \'{6}\' \'{7}\' \'{8}\' \'{9}\' \'{" +
-                        "10}\' \'{11}\' \'{12}\' \'{13}\' \'{14}\'", isValid, status, firstNames, surname, preferredName, passport, countryID, lUCPreferredLanguage, lUCMaritalStatus, employerName, employeeNo, lUCIncomeCategory, isStaff, lUCTitle, salaryPayDay), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then(string.Format("the result should be \'{0}\' \'{1}\' \'{2}\' \'{3}\' \'{4}\' \'{5}\' \'{6}\' \'{7}\' \'{8}\' \'{9}\' " +
+                        "\'{10}\' \'{11}\' {12} \'{13}\' \'{14}\'", govIDValidationResponse, govIDExceptionStatus, firstNames, surname, preferredName, passport, countryID, lUCPreferredLanguage, lUCMaritalStatus, employerName, employeeNo, lUCIncomeCategory, isStaff, lUCTitle, salaryPayDay), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -110,8 +110,8 @@ this.ScenarioSetup(scenarioInfo);
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "NoGovID")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:CaseName", "NoGovID")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:GovID", "")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:IsValid", "false")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Status", "Invalid")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:GovIDValidationResponse", "NoGovID")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:GovIDExceptionStatus", "NoException")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FirstNames", "")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Surname", "")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:PreferredName", "")]
@@ -123,11 +123,11 @@ this.ScenarioSetup(scenarioInfo);
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:EmployeeNo", "")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:SalaryPayDay", "")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:LUCIncomeCategory", "")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:IsStaff", "")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:IsStaff", "false")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:LUCTitle", "")]
         public virtual void LoadAnAccountUsingGovID_NoGovID()
         {
-            this.LoadAnAccountUsingGovID("NoGovID", "", "false", "Invalid", "", "", "", "", "", "", "", "", "", "", "", "", "", ((string[])(null)));
+            this.LoadAnAccountUsingGovID("NoGovID", "", "NoGovID", "NoException", "", "", "", "", "", "", "", "", "", "", "", "false", "", ((string[])(null)));
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
@@ -136,8 +136,8 @@ this.ScenarioSetup(scenarioInfo);
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "GovIDIsInvalid")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:CaseName", "GovIDIsInvalid")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:GovID", "80")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:IsValid", "false")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Status", "Invalid")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:GovIDValidationResponse", "Invalid")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:GovIDExceptionStatus", "NoException")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FirstNames", "")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Surname", "")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:PreferredName", "")]
@@ -149,11 +149,11 @@ this.ScenarioSetup(scenarioInfo);
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:EmployeeNo", "")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:SalaryPayDay", "")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:LUCIncomeCategory", "")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:IsStaff", "")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:IsStaff", "false")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:LUCTitle", "")]
         public virtual void LoadAnAccountUsingGovID_GovIDIsInvalid()
         {
-            this.LoadAnAccountUsingGovID("GovIDIsInvalid", "80", "false", "Invalid", "", "", "", "", "", "", "", "", "", "", "", "", "", ((string[])(null)));
+            this.LoadAnAccountUsingGovID("GovIDIsInvalid", "80", "Invalid", "NoException", "", "", "", "", "", "", "", "", "", "", "", "false", "", ((string[])(null)));
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
@@ -162,8 +162,8 @@ this.ScenarioSetup(scenarioInfo);
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "GovIDIsBlacklisted")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:CaseName", "GovIDIsBlacklisted")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:GovID", "8611230945087")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:IsValid", "true")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Status", "Blacklisted")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:GovIDValidationResponse", "Valid")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:GovIDExceptionStatus", "Blacklisted")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FirstNames", "PHUMZA")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Surname", "GQOTSA")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:PreferredName", "")]
@@ -175,11 +175,11 @@ this.ScenarioSetup(scenarioInfo);
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:EmployeeNo", "")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:SalaryPayDay", "31")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:LUCIncomeCategory", "5 001 - 10 000")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:IsStaff", "0")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:IsStaff", "false")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:LUCTitle", "Mrs.")]
         public virtual void LoadAnAccountUsingGovID_GovIDIsBlacklisted()
         {
-            this.LoadAnAccountUsingGovID("GovIDIsBlacklisted", "8611230945087", "true", "Blacklisted", "PHUMZA", "GQOTSA", "", "", "ZA", "en", "Married", "DEPARTMENT OF ARLTICULTURE ANDFOREST FISHERIES", "", "31", "5 001 - 10 000", "0", "Mrs.", ((string[])(null)));
+            this.LoadAnAccountUsingGovID("GovIDIsBlacklisted", "8611230945087", "Valid", "Blacklisted", "PHUMZA", "GQOTSA", "", "", "ZA", "en", "Married", "DEPARTMENT OF ARLTICULTURE ANDFOREST FISHERIES", "", "31", "5 001 - 10 000", "false", "Mrs.", ((string[])(null)));
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
@@ -188,8 +188,8 @@ this.ScenarioSetup(scenarioInfo);
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "GovIDIsNew")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:CaseName", "GovIDIsNew")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:GovID", "8009135069089")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:IsValid", "true")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Status", "New")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:GovIDValidationResponse", "Valid")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:GovIDExceptionStatus", "NoException")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FirstNames", "")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Surname", "")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:PreferredName", "")]
@@ -201,11 +201,11 @@ this.ScenarioSetup(scenarioInfo);
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:EmployeeNo", "")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:SalaryPayDay", "")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:LUCIncomeCategory", "")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:IsStaff", "")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:IsStaff", "false")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:LUCTitle", "")]
         public virtual void LoadAnAccountUsingGovID_GovIDIsNew()
         {
-            this.LoadAnAccountUsingGovID("GovIDIsNew", "8009135069089", "true", "New", "", "", "", "", "", "", "", "", "", "", "", "", "", ((string[])(null)));
+            this.LoadAnAccountUsingGovID("GovIDIsNew", "8009135069089", "Valid", "NoException", "", "", "", "", "", "", "", "", "", "", "", "false", "", ((string[])(null)));
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
@@ -214,8 +214,8 @@ this.ScenarioSetup(scenarioInfo);
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "GovIDIsExisting")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:CaseName", "GovIDIsExisting")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:GovID", "8801315607088")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:IsValid", "true")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Status", "Existing")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:GovIDValidationResponse", "Valid")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:GovIDExceptionStatus", "NoException")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:FirstNames", "MABUTHESIZWE")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:Surname", "NXUMALO")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:PreferredName", "")]
@@ -227,11 +227,11 @@ this.ScenarioSetup(scenarioInfo);
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:EmployeeNo", "")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:SalaryPayDay", "15")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:LUCIncomeCategory", "Unknown")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:IsStaff", "0")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:LUCTitle", "")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:IsStaff", "false")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:LUCTitle", "Mrs.")]
         public virtual void LoadAnAccountUsingGovID_GovIDIsExisting()
         {
-            this.LoadAnAccountUsingGovID("GovIDIsExisting", "8801315607088", "true", "Existing", "MABUTHESIZWE", "NXUMALO", "", "", "ZA", "en", "Not Married", "STUDENT", "", "15", "Unknown", "0", "", ((string[])(null)));
+            this.LoadAnAccountUsingGovID("GovIDIsExisting", "8801315607088", "Valid", "NoException", "MABUTHESIZWE", "NXUMALO", "", "", "ZA", "en", "Not Married", "STUDENT", "", "15", "Unknown", "false", "Mrs.", ((string[])(null)));
         }
     }
 }
