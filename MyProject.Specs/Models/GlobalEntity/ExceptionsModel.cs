@@ -5,20 +5,36 @@ using MyProject.Specs.ViewModels;
 
 namespace MyProject.Specs.Models.GlobalEntity
 {
+    /// <summary>
+    /// This class handles all of the behaviours around GovIDs with exceptions.
+    /// </summary>
     public class ExceptionsModel : IExceptionsModel
     {
         private IExceptionsData _exceptionsData;
 
+        /// <summary>
+        /// Default constructor for this model.
+        /// </summary>
         public ExceptionsModel()
         {
             _exceptionsData = new ExceptionsData();
         }
 
+        /// <summary>
+        /// The constructor for the Exceptions data access class. 
+        /// </summary>
+        /// <param name="exceptionsData">A data access class that inherits the IException interface.</param>
         public ExceptionsModel(IExceptionsData exceptionsData)
         {
             _exceptionsData = exceptionsData;
         }
 
+        /// <summary>
+        /// This method is used to check if the GovID entered is an exception.
+        /// Possible exception types are found in the GovIDExceptionStatusEnum class.
+        /// </summary>
+        /// <param name="govID">The GovID that you are looking for an exception for.</param>
+        /// <returns>The ExceptionsViewModel that contains the Exception state for GovID that you have returned.</returns>
         public ExceptionsViewModel IsException(string govID)
         {
             var exceptionsViewModel = new ExceptionsViewModel();
@@ -52,6 +68,8 @@ namespace MyProject.Specs.Models.GlobalEntity
             {
                 exceptionsViewModel.ResponseMessage = ex.ToString();
                 exceptionsViewModel.ResponseStatus = ResponseStatus.Failed;
+
+                //ToDo Integrate logging service.
             }
 
             exceptionsViewModel.ResponseDateTime = DateTime.Now;

@@ -4,6 +4,6 @@ namespace MyProject.Specs.Data.GlobalEntity
 {
     public interface IGlobalEntityData
     {
-        IList<MyProject.Specs.Entity.GlobalEntity> FindByGovID(string govID);
+        IList<Entity.GlobalEntity> FindByGovID(string govID);
     }
 }

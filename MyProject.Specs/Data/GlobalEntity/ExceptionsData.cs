@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using MyProject.Specs.Entity;
-using MyProject.Specs.Enums;
-using MyProject.Specs.Models;
-using MyProject.Specs.ViewModels;
 
 namespace MyProject.Specs.Data.GlobalEntity
 {

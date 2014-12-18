@@ -9,6 +9,9 @@ namespace MyProjects.Specs.UnitTests.Data.GlobalEntity
     /// </summary>
     public class MerchDataMock : IMerchData
     {
+        /// <summary>
+        /// This public property allows you to inject your own Data to use.
+        /// </summary>
         public List<MerchCode> dataToUse { get; set; }
 
         /// <summary>

@@ -6,23 +6,35 @@ using MyProject.Specs.ViewModels;
 
 namespace MyProject.Specs.Models.GlobalEntity
 {
+    /// <summary>
+    /// This model contains all of the business logic around the GlobalEntity.GlobalEntity entity.
+    /// </summary>
     public class GlobalEntityModel : IGlobalEntityModel
     {
         private IGlobalEntityData _globalEntityData;
 
         /// <summary>
-        /// Default Constructor
+        /// Default Constructor for this class
         /// </summary>
         public GlobalEntityModel()
         {
             _globalEntityData = new GlobalEntityData();
         }
 
+        /// <summary>
+        /// This constructor takes in any class that interfaces with the IGlobalEntityData interface.
+        /// </summary>
+        /// <param name="globalEntityData">The class that you would like to use as the source of you GlobalEntity data.</param>
         public GlobalEntityModel(IGlobalEntityData globalEntityData)
         {
             _globalEntityData = globalEntityData;
         }
 
+        /// <summary>
+        /// This method first validates the SA GovID and then tries to find a GovID that matches in the Genisys database.
+        /// </summary>
+        /// <param name="govID">The GovID that you want to validate and look for matches for.</param>
+        /// <returns>A GlobalEntityViewModel containing the response.</returns>
         public GlobalEntityViewModel ValidateGovID(string govID)
         {
             GlobalEntityViewModel globalEntityViewModel = new GlobalEntityViewModel();
@@ -41,6 +53,8 @@ namespace MyProject.Specs.Models.GlobalEntity
             {
                 globalEntityViewModel.ResponseStatus = ResponseStatus.Failed;
                 globalEntityViewModel.ResponseMessage = ex.ToString();
+
+                //ToDo Integrate logging service.
             }
 
             globalEntityViewModel.ResponseDateTime = DateTime.Now;
@@ -48,6 +62,11 @@ namespace MyProject.Specs.Models.GlobalEntity
             return globalEntityViewModel;
         }
 
+        /// <summary>
+        /// This method checks that the SA GovID that you have passed in matches the regex pattern for a SA GovID.
+        /// </summary>
+        /// <param name="govID">The GovID that you want to validate.</param>
+        /// <returns>A GlobalEntityViewModel with the response from the validation request.</returns>
         public GlobalEntityViewModel GovIDIsValid(string govID)
         {
             bool isValid = false;
@@ -80,6 +99,8 @@ namespace MyProject.Specs.Models.GlobalEntity
 
                 globalEntityViewModel.ResponseStatus = ResponseStatus.Failed;
                 globalEntityViewModel.ResponseMessage = ex.ToString();
+
+                //ToDo Integrate logging service.
             }
 
             globalEntityViewModel.ResponseDateTime = DateTime.Now;
@@ -87,6 +108,11 @@ namespace MyProject.Specs.Models.GlobalEntity
             return globalEntityViewModel;
         }
 
+        /// <summary>
+        /// This method looks to see if matches can be found in the GlobalEntity.GlobalEntity in Genisys table for the GovID passed in.
+        /// </summary>
+        /// <param name="govID">The GovID that you are looking for matches for.</param>
+        /// <returns>A GlobalEntityViewModel with the any potential matches found.</returns>
         public GlobalEntityViewModel FindByGovID(string govID)
         {
             GlobalEntityViewModel globalEntityViewModel = new GlobalEntityViewModel();
@@ -102,6 +128,8 @@ namespace MyProject.Specs.Models.GlobalEntity
             {
                 globalEntityViewModel.ResponseStatus = ResponseStatus.Failed;
                 globalEntityViewModel.ResponseMessage = ex.ToString();
+
+                //ToDo Integrate logging service.
             }
 
             globalEntityViewModel.ResponseDateTime = DateTime.Now;

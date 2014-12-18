@@ -101,6 +101,7 @@ namespace MyProject.Specs.Models.GlobalEntity
             catch (Exception ex)
             {
                 errorMessage = ex.ToString();
+                //ToDO Add Logging.
             }
 
             if (!string.IsNullOrEmpty(errorMessage))
@@ -139,6 +140,7 @@ namespace MyProject.Specs.Models.GlobalEntity
             }
             catch (Exception ex)
             {
+                //ToDO Add Logging.
                 errorMessage = ex.ToString();
             }
 
@@ -190,6 +192,7 @@ namespace MyProject.Specs.Models.GlobalEntity
             }
             catch (Exception ex)
             {
+                //ToDO Add Logging.
                 errorMessage = ex.ToString();
             }
 

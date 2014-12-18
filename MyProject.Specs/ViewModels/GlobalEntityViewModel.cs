@@ -5,6 +5,9 @@ using MyProject.Specs.Models;
 
 namespace MyProject.Specs.ViewModels
 {
+    /// <summary>
+    /// This class contains the responses of validation/data access attempts assocaited with the GlobalEntity entity.
+    /// </summary>
     public class GlobalEntityViewModel : BaseResponse
     {
         public IList<GlobalEntity> GlobalEntity { get; set; }

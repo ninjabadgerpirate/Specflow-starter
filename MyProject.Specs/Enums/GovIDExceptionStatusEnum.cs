@@ -1,7 +1,7 @@
 ﻿namespace MyProject.Specs.Enums
 {
     /// <summary>
-    /// These ENUMS indicate the various statuses for GovIDs.
+    /// These ENUMS indicate the various Exception statuses for GovIDs.
     /// </summary>
     public enum GovIDExceptionStatusEnum
     {

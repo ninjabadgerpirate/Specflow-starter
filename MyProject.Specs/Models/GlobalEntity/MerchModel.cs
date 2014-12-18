@@ -24,7 +24,7 @@ namespace MyProject.Specs.Models.GlobalEntity
         }
 
         /// <summary>
-        /// The constructor that takes in the database repository.
+        /// The constructor that takes in the data source for the Merch Model.
         /// </summary>
         /// <param name="merchData">A database repository that inherits the IMerchData interface.</param>
         public MerchModel(IMerchData merchData)
@@ -101,6 +101,8 @@ namespace MyProject.Specs.Models.GlobalEntity
             {
                 merchViewModel.ResponseStatus = ResponseStatus.Failed;
                 merchViewModel.ResponseMessage = ex.ToString();
+
+                //ToDO Add Logging.
             }
 
             merchViewModel.IsValid = result;

@@ -5,10 +5,19 @@ using MyProject.Specs.Data.GlobalEntity;
 
 namespace MyProjects.Specs.UnitTests.Data.Exceptions
 {
+    /// <summary>
+    /// This is the mocked data class for the Exceptions model.
+    /// </summary>
     public class ExceptionsDataMock : IExceptionsData
     {
+        /// <summary>
+        /// This public property allows you to inject your own Data to use.
+        /// </summary>
         public IList<MyProject.Specs.Entity.Exceptions> dataToUse { get; set; }
-
+        
+        /// <summary>
+        /// The default constructor for the Exceptions data class.
+        /// </summary>
         public ExceptionsDataMock()
         {
             dataToUse = new List<MyProject.Specs.Entity.Exceptions>();
@@ -43,6 +52,11 @@ namespace MyProjects.Specs.UnitTests.Data.Exceptions
             });
         }
 
+        /// <summary>
+        /// The method that matches the GovID inputted to the data that exists in the dataToUse object.
+        /// </summary>
+        /// <param name="govID">The GovID record to find.</param>
+        /// <returns>A list of exceptions that match the GovID that you have inputted.</returns>
         public IList<MyProject.Specs.Entity.Exceptions> ReturnMatchingExceptions(string govID)
         {
             return dataToUse.Where(x => x.GovID == govID).ToList();

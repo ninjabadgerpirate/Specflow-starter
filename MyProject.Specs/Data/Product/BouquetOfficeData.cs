@@ -12,6 +12,9 @@ namespace MyProject.Specs.Data.Product
     {
         private GeniSysEntities db;
 
+        /// <summary>
+        /// The default contructor for this class.
+        /// </summary>
         public BouquetOfficeData()
         {
             db = new GeniSysEntities();
@@ -33,6 +36,7 @@ namespace MyProject.Specs.Data.Product
             }
             catch (Exception ex)
             {
+                //ToDO Add Logging.
                 errorMessage = ex.ToString();
             }
 

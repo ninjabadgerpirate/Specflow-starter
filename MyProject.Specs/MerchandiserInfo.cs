@@ -1,9 +1,11 @@
-﻿using MyProject.Specs.Models;
-using MyProject.Specs.Models.GlobalEntity;
+﻿using MyProject.Specs.Models.GlobalEntity;
 using MyProject.Specs.Models.Product;
 
 namespace MyProject.Specs
 {
+    /// <summary>
+    /// This class will contain the implementation required for the Merchandiser feature as a whole.
+    /// </summary>
     public class MerchandiserInfo : IMerchandiserInfo
     {
         private IOfficeModel officeModel;

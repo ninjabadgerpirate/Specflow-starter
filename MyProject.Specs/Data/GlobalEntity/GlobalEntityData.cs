@@ -5,6 +5,9 @@ using MyProject.Specs.Entity;
 
 namespace MyProject.Specs.Data.GlobalEntity
 {
+    /// <summary>
+    /// This class acts as the source of data required for the business rules in the GlobalEntity model.
+    /// </summary>
     public class GlobalEntityData : IGlobalEntityData
     {
         private GeniSysEntities db;
@@ -22,9 +25,9 @@ namespace MyProject.Specs.Data.GlobalEntity
         /// </summary>
         /// <param name="govID">The GovID you are wanting to retrieve records for.</param>
         /// <returns>An office view model containing the validity response.</returns>
-        public IList<MyProject.Specs.Entity.GlobalEntity> FindByGovID(string govID)
+        public IList<Entity.GlobalEntity> FindByGovID(string govID)
         {
-            var result = new List<MyProject.Specs.Entity.GlobalEntity>();
+            var result = new List<Entity.GlobalEntity>();
 
             try
             {
